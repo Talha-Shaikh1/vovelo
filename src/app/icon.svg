@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F5132" />
+      <stop offset="100%" stop-color="#072617" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E8F3EE" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)" stroke="#22734C" stroke-width="1.5" />
+
+  <!-- Inner luxury border -->
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+
+  <!-- Volvelo Elegant "V" Monogram -->
+  <path 
+    d="M17 18 L24.5 18 L32 40 L39.5 18 L47 18 L35.5 48 L28.5 48 Z" 
+    fill="url(#goldGrad)" 
+    filter="url(#shadow)"
+  />
+
+  <!-- Diamond Accent -->
+  <polygon points="32,13 34,16 32,19 30,16" fill="#D4AF37" opacity="0.9" />
+</svg>

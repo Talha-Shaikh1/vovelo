@@ -1,0 +1,227 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TenantStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+model Tenant {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  logo      String?
+  status    TenantStatus @default(ACTIVE)
+  email     String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  products   Product[]
+  orderItems OrderItem[]
+
+  @@index([status])
+  @@index([slug])
+}
+
+model Category {
+  id             String    @id @default(cuid())
+  name           String
+  slug           String    @unique
+  description    String?
+  image          String?
+  parentId       String?
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children Category[] @relation("CategoryHierarchy")
+  products Product[]
+
+  @@index([slug])
+  @@index([parentId])
+}
+
+model Product {
+  id             String        @id @default(cuid())
+  tenantId       String
+  categoryId     String
+  title          String
+  slug           String        @unique
+  description    String        @db.Text
+  basePrice      Float
+  compareAtPrice Float?
+  isFeatured     Boolean       @default(false)
+  status         ProductStatus @default(ACTIVE)
+  seoScore       Float         @default(50.0)
+  seoTitle       String?
+  seoDescription String?
+  tags           String[]      @default([])
+  viewsCount     Int           @default(0)
+  cartAddCount   Int           @default(0)
+  ordersCount    Int           @default(0)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category   Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  variants   ProductVariant[]
+  images     ProductImage[]
+  orderItems OrderItem[]
+
+  @@index([tenantId])
+  @@index([categoryId])
+  @@index([slug])
+  @@index([status])
+  @@index([seoScore])
+  @@index([isFeatured])
+}
+
+model ProductVariant {
+  id             String   @id @default(cuid())
+  productId      String
+  sku            String   @unique
+  price          Float
+  compareAtPrice Float?
+  stock          Int      @default(0)
+  image          String?
+  optionValues   Json     // e.g. { "Color": "Emerald", "Size": "M" }
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@index([productId])
+  @@index([sku])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  variantId String?
+  url       String
+  altText   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([variantId])
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  orderNumber    String      @unique
+  customerName   String
+  customerEmail  String
+  customerPhone  String
+  addressLine1   String
+  addressLine2   String?
+  city           String
+  state          String?
+  postalCode     String
+  country        String      @default("DE")
+  totalAmount    Float
+  subtotal       Float
+  shippingFee    Float       @default(0.0)
+  status         OrderStatus @default(PENDING_PAYMENT)
+  trackingNumber String?
+  notes          String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  items OrderItem[]
+
+  @@index([orderNumber])
+  @@index([customerEmail])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id           String  @id @default(cuid())
+  orderId      String
+  productId    String
+  variantId    String
+  tenantId     String
+  title        String
+  variantTitle String
+  sku          String
+  price        Float
+  quantity     Int
+  imageUrl     String?
+
+  order   Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product        @relation(fields: [productId], references: [id], onDelete: Restrict)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  tenant  Tenant         @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+
+  @@index([orderId])
+  @@index([productId])
+  @@index([variantId])
+  @@index([tenantId])
+}
+
+model BlogPost {
+  id                 String    @id @default(cuid())
+  title              String
+  slug               String    @unique
+  excerpt            String    @db.Text
+  content            String    @db.Text
+  coverImage         String?
+  author             String    @default("Volvelo Editorial")
+  isPublished        Boolean   @default(true)
+  publishedAt        DateTime? @default(now())
+  seoTitle           String?
+  seoDescription     String?
+  tags               String[]  @default([])
+  embeddedProductIds Json      @default("[]") // Array of product ids embedded in post
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+}
+
+model SiteSettings {
+  id                    String   @id @default("default")
+  storeName             String   @default("Volvelo")
+  tagline               String   @default("Clean Essentials for Modern Living")
+  logoUrl               String?
+  contactEmail          String   @default("support@volvelo.com")
+  contactPhone          String   @default("+49 30 1234567")
+  currencySymbol        String   @default("€")
+  currencyCode          String   @default("EUR")
+  announcementText      String?  @default("Free European shipping on orders over €50 • Carbon-neutral delivery")
+  headerMenuJson        Json?
+  footerConfigJson      Json?
+  defaultMetaTitle      String   @default("Volvelo — Premium Minimal Goods")
+  defaultMetaDescription String  @default("Shop high-quality sustainable apparel, bags, and daily essentials across Europe.")
+  lowStockThreshold     Int      @default(5)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
