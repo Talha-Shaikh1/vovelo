@@ -27,7 +27,7 @@ export const mockSiteSettings: SiteSettings = {
   lowStockThreshold: 3,
   shippingBadgeTitle: 'EU Express',
   shippingBadgeSubtitle: '2-4 Days Direct',
-  returnsBadgeTitle: '30 Days',
+  returnsBadgeTitle: '7 Days',
   returnsBadgeSubtitle: 'Complimentary Returns',
   guaranteeBadgeTitle: 'Guaranteed',
   guaranteeBadgeSubtitle: '100% Verified Atelier',

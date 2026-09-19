@@ -670,7 +670,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck size={14} className="text-[#0F5132]" />
-                <span>30-day risk-free returns & direct maker warranty</span>
+                <span>7-day inspection returns & direct maker warranty</span>
               </div>
             </div>
           </div>

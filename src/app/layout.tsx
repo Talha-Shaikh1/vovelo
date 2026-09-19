@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Volvelo — European Luxury Timepieces, Footwear, Silk Apparel & Fine Jewellery',
-    description: 'Direct fulfillment from certified European ateliers. 30-day trial & carbon-neutral delivery.',
+    description: 'Direct fulfillment from certified European ateliers. 7-day returns & carbon-neutral delivery.',
     siteName: 'Volvelo',
     locale: 'en_EU',
     type: 'website',
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Volvelo — European Luxury Timepieces, Footwear, Silk Apparel & Fine Jewellery',
-    description: 'Direct fulfillment from certified European ateliers. 30-day trial & carbon-neutral delivery.',
+    description: 'Direct fulfillment from certified European ateliers. 7-day returns & carbon-neutral delivery.',
     creator: '@volvelo',
   },
 };

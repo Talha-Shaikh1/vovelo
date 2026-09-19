@@ -125,7 +125,7 @@ export function ProductsManagerClient({
     setFormDescription('');
     setFormImageUrl('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80');
     setFormShippingOverride('2-4 Days (EU Direct)');
-    setFormReturnsOverride('30-Day Free Returns');
+    setFormReturnsOverride('7-Day Free Returns');
     setFormMaterialTag('100% ZQ Merino Wool');
     setFormCustomBadge('New Season');
     setFormSeoTitle('');
@@ -239,7 +239,7 @@ export function ProductsManagerClient({
     setFormSeoTitle(`${formTitle} — ${cat} by ${maker} | Volvelo`);
     setFormSeoDescription(
       formDescription.slice(0, 150) ||
-        `Shop ${formTitle} ethically crafted in Europe. Sustainable materials, direct fulfillment, and 30-day wear trial.`
+        `Shop ${formTitle} ethically crafted in Europe. Sustainable materials, direct fulfillment, and 7-day return guarantee.`
     );
   };
 
@@ -697,7 +697,7 @@ export function ProductsManagerClient({
                         type="text"
                         value={formReturnsOverride}
                         onChange={(e) => setFormReturnsOverride(e.target.value)}
-                        placeholder="e.g. 30-Day Free Trial"
+                        placeholder="e.g. 7-Day Free Returns"
                         className="w-full text-xs bg-white border border-[#E4E4E0] rounded-xl px-3 py-2 text-[#111111]"
                       />
                     </div>

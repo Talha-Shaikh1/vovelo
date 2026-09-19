@@ -240,13 +240,6 @@ export function Header({
                   </div>
                 );
               })}
-
-              <Link
-                href="/blog"
-                className="hover:text-[#0F5132] transition-colors py-6 whitespace-nowrap"
-              >
-                Journal
-              </Link>
             </nav>
 
             {/* Right Header Actions */}
@@ -403,14 +396,6 @@ export function Header({
                   </div>
                 );
               })}
-
-              <Link
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold py-2.5 px-3 rounded-lg text-[#111111] hover:bg-[#F0F0EC] transition-colors"
-              >
-                Journal & Guides
-              </Link>
 
               <div className="pt-2 border-t border-[#E4E4E0] flex items-center gap-2">
                 <Link

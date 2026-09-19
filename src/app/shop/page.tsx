@@ -72,7 +72,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             {search ? `Search Results for "${search}"` : 'All Products & Essentials'}
           </h1>
           <p className="text-xs text-[#666660] mt-1.5">
-            Showing {products.length} products • Ranked by popularity & SEO signals
+            Showing {products.length} products • Curated European luxury collection
           </p>
         </div>
 

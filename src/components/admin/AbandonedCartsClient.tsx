@@ -293,7 +293,7 @@ export function AbandonedCartsClient({ initialCarts }: AbandonedCartsClientProps
                   </div>
 
                   <div className="pt-2 text-center text-[10px] text-neutral-400">
-                    Volvelo European HQ • Free Carbon-Neutral Shipping over €50 • 30-Day Free Returns
+                    Volvelo European HQ • Free Carbon-Neutral Shipping over €50 • 7-Day Free Returns
                   </div>
                 </div>
 

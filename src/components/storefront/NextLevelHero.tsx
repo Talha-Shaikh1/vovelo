@@ -223,7 +223,7 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
               <span>•</span>
               <div className="flex items-center gap-1.5">
                 <ShieldCheck size={15} className="text-[#0F5132]" />
-                <span>30-Day Wear & Wash Trial</span>
+                <span>7-Day Return Guarantee</span>
               </div>
             </div>
           </div>

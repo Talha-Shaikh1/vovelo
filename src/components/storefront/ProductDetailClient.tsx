@@ -94,7 +94,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
   const shippingTitle = settings?.shippingBadgeTitle || 'EU Shipping';
   const shippingSubtitle =
     product.shippingTimeOverride || settings?.shippingBadgeSubtitle || '2-4 Days';
-  const returnsTitle = settings?.returnsBadgeTitle || '30 Days';
+  const returnsTitle = settings?.returnsBadgeTitle || '7 Days';
   const returnsSubtitle =
     product.returnsPolicyOverride || settings?.returnsBadgeSubtitle || 'Free Returns';
   const guaranteeTitle = settings?.guaranteeBadgeTitle || 'Guaranteed';

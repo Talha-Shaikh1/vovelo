@@ -97,10 +97,10 @@ export function CategoryFilters({
           onChange={(e) => updateFilters({ sort: e.target.value })}
           className="w-full text-xs bg-[#F0F0EC] border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
         >
-          <option value="seo">SEO & Popularity Rank</option>
+          <option value="seo">Featured & Recommended</option>
           <option value="price_asc">Price: Low to High</option>
           <option value="price_desc">Price: High to Low</option>
-          <option value="newest">Newest Releases</option>
+          <option value="newest">Newest Arrivals</option>
         </select>
       </div>
 

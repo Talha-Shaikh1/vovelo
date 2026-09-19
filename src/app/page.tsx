@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Volvelo — Luxury European Timepieces, Footwear & Haute Craft',
     description:
-      'Direct atelier fulfillment from Geneva, Florence, Milan, and Paris. 30-day trial & carbon-neutral express delivery.',
+      'Direct atelier fulfillment from Geneva, Florence, Milan, and Paris. 7-day returns & carbon-neutral express delivery.',
     url: 'https://volvelo.com',
     siteName: 'Volvelo',
     locale: 'en_EU',
@@ -51,13 +51,12 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [settings, categories, bestsellers, allProducts, blogPosts, allTenants] =
+  const [settings, categories, bestsellers, allProducts, allTenants] =
     await Promise.all([
       getSiteSettings(),
       getCategories(),
       getProducts({ sort: 'seo', limit: 8 }),
       getProducts({ limit: 20 }),
-      getBlogPosts(),
       getAllTenants(),
     ]);
 
@@ -133,7 +132,7 @@ export default async function HomePage() {
         name: 'What is the return and exchange policy?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We offer a 30-day risk-free return and size exchange guarantee. If your timepiece, shoes, or apparel do not fit perfectly, returns are complimentary with prepaid DHL return shipping.',
+          text: 'We offer a 7-day inspection and return guarantee. If your timepiece, shoes, or apparel do not fit perfectly, returns and exchanges are complimentary within 7 days in original unworn condition with atelier tags.',
         },
       },
     ],
@@ -287,12 +286,6 @@ export default async function HomePage() {
                   >
                     Discover the Collection
                   </Link>
-                  <Link
-                    href="/blog"
-                    className="px-6 py-3 bg-[#222220] hover:bg-[#333330] text-white text-xs font-semibold rounded-xl transition-colors"
-                  >
-                    Read Our Fabric Stories
-                  </Link>
                 </div>
               </div>
 
@@ -322,9 +315,9 @@ export default async function HomePage() {
                   <div className="w-10 h-10 rounded-xl bg-[#0F5132]/30 text-emerald-400 flex items-center justify-center">
                     <RotateCcw size={20} />
                   </div>
-                  <h3 className="text-sm font-bold text-white">30-Day Wear Trial</h3>
+                  <h3 className="text-sm font-bold text-white">7-Day Return Policy</h3>
                   <p className="text-xs text-[#999990] leading-relaxed">
-                    Wear them, wash them, test them. Free returns if not completely satisfied.
+                    7 days to try on and inspect your atelier pieces with original tags intact.
                   </p>
                 </div>
 
@@ -501,79 +494,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 6. Journal / Buying Guides Section */}
-        {blogPosts.length > 0 && (
-          <section
-            aria-label="Editorial Journal"
-            className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
-          >
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#0F5132]">
-                  The Volvelo Journal
-                </span>
-                <h2 className="text-2xl font-bold text-[#111111] mt-1">
-                  Buying Guides & Fabric Stories
-                </h2>
-              </div>
-              <Link
-                href="/blog"
-                className="text-xs font-semibold text-[#0F5132] hover:underline flex items-center gap-1"
-              >
-                <span>Read all articles</span>
-                <ArrowRight size={13} />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {blogPosts.slice(0, 2).map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.slug}`}
-                  className="group bg-white rounded-2xl border border-[#E4E4E0] overflow-hidden shadow-2xs hover:shadow-md transition-all flex flex-col"
-                >
-                  <div className="aspect-[16/9] w-full bg-[#F0F0EC] overflow-hidden">
-                    <img
-                      src={
-                        post.coverImage ||
-                        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80'
-                      }
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 text-[11px] text-[#666660] mb-2">
-                      <span className="font-semibold text-[#0F5132]">{post.author}</span>
-                      <span>•</span>
-                      <span>
-                        {post.publishedAt
-                          ? new Date(post.publishedAt).toLocaleDateString('en-EU', {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
-                            })
-                          : 'Recent'}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold text-[#111111] group-hover:text-[#0F5132] transition-colors leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="text-xs text-[#666660] mt-2 line-clamp-2 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-[#F0F0EC] flex items-center text-xs font-semibold text-[#0F5132] gap-1">
-                      <span>Read full guide</span>
-                      <ArrowRight size={13} />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
         {/* 7. Frequently Asked Questions (FAQ) Section for Semantic AEO */}
         <section
           aria-label="Frequently Asked Questions"
@@ -633,14 +553,14 @@ export default async function HomePage() {
 
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>What is the 30-Day Risk-Free Trial?</span>
+                <span>What is the 7-Day Return Policy?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"
                 />
               </summary>
               <p className="text-xs text-[#666660] mt-3 leading-relaxed">
-                You can try our runners, apparel, and bags in real life for up to 30 days. If the size or feel isn't ideal, we provide free prepaid return labels for an instant refund or size swap.
+                We offer a 7-day inspection and return guarantee. If your timepiece, shoes, or apparel do not fit as desired, you can request an exchange or return within 7 days in original unworn condition with tags intact.
               </p>
             </details>
           </div>

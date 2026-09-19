@@ -21,7 +21,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: ['GPTBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot', 'Applebot-Extended', 'Google-Extended'],
-        allow: ['/', '/shop', '/product/', '/category/', '/brand/', '/blog/'],
+        allow: ['/', '/shop', '/product/', '/category/', '/brand/'],
         disallow: ['/admin/', '/portal/', '/api/', '/checkout', '/cart'],
       },
     ],

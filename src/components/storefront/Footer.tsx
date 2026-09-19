@@ -22,8 +22,8 @@ export function Footer() {
               <RefreshCw size={22} />
             </div>
             <div>
-              <h4 className="font-semibold text-sm">30-Day Hassle-Free Returns</h4>
-              <p className="text-xs text-[#999990] mt-0.5">Prepaid return labels provided</p>
+              <h4 className="font-semibold text-sm">7-Day Return Policy</h4>
+              <p className="text-xs text-[#999990] mt-0.5">Complimentary returns with atelier tags</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -117,11 +117,6 @@ export function Footer() {
               <li>
                 <Link href="/portal" className="hover:text-emerald-400 transition-colors">
                   Merchant Portal (/portal)
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-emerald-400 transition-colors">
-                  Journal & Buying Guides
                 </Link>
               </li>
               <li>

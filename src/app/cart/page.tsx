@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -341,7 +341,7 @@ export default function CartPage() {
                   <div className="pt-2 space-y-2.5 text-[11px] text-[#666660]">
                     <div className="flex items-center gap-2">
                       <RotateCcw size={14} className="text-[#0F5132] shrink-0" />
-                      <span>30-Day Hassle-Free European Returns</span>
+                      <span>7-Day European Return Guarantee</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Truck size={14} className="text-[#0F5132] shrink-0" />
