@@ -125,7 +125,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     offers: {
       '@type': 'Offer',
       url: productUrl,
-      priceCurrency: 'EUR',
+      priceCurrency: 'USD',
       price: product.basePrice,
       priceValidUntil: '2026-12-31',
       availability: product.variants.some((v) => v.stock > 0)
@@ -141,11 +141,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
         shippingRate: {
           '@type': 'MonetaryAmount',
           value: '0',
-          currency: 'EUR',
+          currency: 'USD',
         },
         shippingDestination: {
           '@type': 'DefinedRegion',
-          addressCountry: ['DE', 'FR', 'NL', 'AT', 'BE', 'IT', 'ES', 'DK', 'SE'],
+          addressCountry: ['US', 'GB', 'CA', 'AU', 'DE', 'FR', 'NL', 'AT', 'BE', 'IT', 'ES', 'DK', 'SE'],
         },
         deliveryTime: {
           '@type': 'ShippingDeliveryTime',
@@ -160,8 +160,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     },
   };
 
-
-  // 2. Schema.org BreadcrumbList for Rich Navigation in SERPs
+  // 2. Schema.org BreadcrumbList for 4-Tier Rich SERP & AEO Hierarchy
   const jsonLdBreadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -172,17 +171,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
         name: 'Home',
         item: baseUrl,
       },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'All Categories',
+        item: `${baseUrl}/categories`,
+      },
       ...(product.category
         ? [
             {
               '@type': 'ListItem',
-              position: 2,
+              position: 3,
               name: product.category.name,
               item: `${baseUrl}/category/${product.category.slug}`,
             },
             {
               '@type': 'ListItem',
-              position: 3,
+              position: 4,
               name: product.title,
               item: productUrl,
             },
@@ -190,7 +195,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         : [
             {
               '@type': 'ListItem',
-              position: 2,
+              position: 3,
               name: product.title,
               item: productUrl,
             },
@@ -213,27 +218,31 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Header announcement={settings.announcementText} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 md:py-10">
-        {/* Semantic Breadcrumbs */}
+        {/* 4-Tier Semantic Breadcrumbs */}
         <nav
           aria-label="Breadcrumb"
           className="flex items-center gap-1.5 text-xs text-[#666660] mb-8 overflow-x-auto no-scrollbar"
         >
-          <Link href="/" className="hover:text-[#111111]">
+          <Link href="/" className="hover:text-[#111111] transition-colors shrink-0">
             Home
           </Link>
-          <ChevronRight size={12} />
+          <ChevronRight size={12} className="shrink-0" />
+          <Link href="/categories" className="hover:text-[#111111] transition-colors shrink-0">
+            All Categories
+          </Link>
+          <ChevronRight size={12} className="shrink-0" />
           {product.category && (
             <>
               <Link
                 href={`/category/${product.category.slug}`}
-                className="hover:text-[#111111]"
+                className="hover:text-[#111111] transition-colors shrink-0"
               >
                 {product.category.name}
               </Link>
-              <ChevronRight size={12} />
+              <ChevronRight size={12} className="shrink-0" />
             </>
           )}
-          <span className="font-semibold text-[#111111] truncate max-w-xs">
+          <span className="font-semibold text-[#111111] truncate max-w-xs shrink-0">
             {product.title}
           </span>
         </nav>

@@ -1,8 +1,9 @@
-﻿'use client';
+'use client';
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { Product } from './types';
+import { toast } from './toast-store';
 
 export interface WishlistItem {
   id: string;
@@ -34,19 +35,26 @@ export const useWishlistStore = create<WishlistState>()(
         const current = get().items;
         if (!current.some((i) => i.id === item.id)) {
           set({ items: [item, ...current] });
+          toast.wishlist(item.name, 'saved');
         }
       },
 
       removeItem: (id) => {
+        const item = get().items.find((i) => i.id === id);
         set({ items: get().items.filter((i) => i.id !== id) });
+        if (item) {
+          toast.wishlist(item.name, 'removed');
+        }
       },
 
       toggleItem: (product) => {
         const current = get().items;
         const exists = current.some((i) => i.id === product.id);
+        const name = 'title' in product ? (product as Product).title : (product as WishlistItem).name;
 
         if (exists) {
           set({ items: current.filter((i) => i.id !== product.id) });
+          toast.wishlist(name, 'removed');
         } else {
           const isFullProduct = 'title' in product;
           const item: WishlistItem = {
@@ -61,13 +69,14 @@ export const useWishlistStore = create<WishlistState>()(
               ? (product as Product).images?.[0]?.url || ''
               : (product as WishlistItem).image,
             brand: isFullProduct
-              ? (product as Product).tenant?.name || 'Volvelo Atelier'
-              : (product as WishlistItem).brand || 'Volvelo Atelier',
+              ? (product as Product).tenant?.name || 'Volvelo Master'
+              : (product as WishlistItem).brand || 'Volvelo Master',
             inStock: isFullProduct
               ? (product as Product).variants?.some((v) => v.stock > 0) ?? true
               : (product as WishlistItem).inStock ?? true,
           };
           set({ items: [item, ...current] });
+          toast.wishlist(name, 'saved');
         }
       },
 

@@ -231,7 +231,7 @@ export function AbandonedCartsClient({ initialCarts }: AbandonedCartsClientProps
                       VOLVELO
                     </span>
                     <span className="text-[10px] uppercase tracking-wider text-[#666660]">
-                      European Atelier Direct
+                      Direct VIP Dispatch
                     </span>
                   </div>
 

@@ -97,7 +97,7 @@ export function TenantsManagerClient({ initialTenants }: TenantsManagerClientPro
           setTenants((prev) =>
             prev.map((t) => (t.id === confirmModal.tenantId ? data.tenant : t))
           );
-          setNotification(`Atelier "${confirmModal.tenantName}" has been deactivated.`);
+          setNotification(`Brand "${confirmModal.tenantName}" has been deactivated.`);
         }
       }
     } catch (err) {
@@ -157,7 +157,7 @@ export function TenantsManagerClient({ initialTenants }: TenantsManagerClientPro
             Makers & Supplier Tenants
           </h1>
           <p className="text-xs text-[#666660] mt-1">
-            Manage certified European ateliers, review pending partner applications, and toggle live catalog visibility.
+            Manage verified luxury brands, review pending partner applications, and toggle live catalog visibility.
           </p>
         </div>
 
@@ -370,7 +370,7 @@ export function TenantsManagerClient({ initialTenants }: TenantsManagerClientPro
         isOpen={confirmModal.isOpen}
         onClose={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
         onConfirm={handleConfirmAction}
-        title={confirmModal.type === 'reject' ? 'Decline Application' : 'Deactivate Atelier'}
+        title={confirmModal.type === 'reject' ? 'Decline Application' : 'Deactivate Brand'}
         message={
           confirmModal.type === 'reject'
             ? `Are you sure you want to decline the European Maker application from "${confirmModal.tenantName}"? This decision will be logged and the maker will not receive an onboarding invite.`

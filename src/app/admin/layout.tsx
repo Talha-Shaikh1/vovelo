@@ -66,7 +66,7 @@ export default async function AdminLayout({
               className="w-full py-3 px-4 bg-[#0F5132] hover:bg-[#0A3622] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
             >
               <Store size={15} />
-              <span>Go to My Merchant Atelier Portal</span>
+              <span>Go to Merchant Portal</span>
             </Link>
 
             <Link

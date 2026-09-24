@@ -99,6 +99,8 @@ export interface Product {
   returnsPolicyOverride?: string | null;
   materialTag?: string | null;
   customBadge?: string | null;
+  redirectFromSlugs?: string[];
+  mergedIntoProductId?: string | null;
   tenant?: Tenant;
   category?: Category;
   variants: ProductVariant[];
@@ -224,6 +226,14 @@ export interface SiteSettings {
   carbonNeutralBadge: string;
   autoApproveMerchants: boolean; // Instant merchant onboarding toggle
   defaultCommissionRate: number; // e.g. 15 for 15% platform take
+  // SEO, Analytics & Marketing Verification
+  googleSiteVerification?: string | null;
+  googleAnalyticsId?: string | null;
+  googleTagManagerId?: string | null;
+  metaPixelId?: string | null;
+  bingSiteVerification?: string | null;
+  pinterestVerification?: string | null;
+  customHeadScripts?: string | null;
 }
 
 export type CurrencyCode = 'EUR' | 'GBP' | 'USD' | 'CHF';

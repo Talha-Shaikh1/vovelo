@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Sell with Us — Apply as a Certified European Maker Atelier | Volvelo',
+  title: 'Sell with Us — Apply as a Certified Luxury Merchant | Volvelo',
   description:
     'Partner with Volvelo. Direct 85% maker net payouts, zero listing fees, and instant access to discerning European buyers across 27 nations.',
   alternates: {

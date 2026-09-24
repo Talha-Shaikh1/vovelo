@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -79,7 +79,7 @@ export default function WishlistPage() {
               </div>
               <h2 className="text-xl font-bold text-[#111111]">No saved items yet</h2>
               <p className="text-sm text-[#666660] mt-2 mb-8 leading-relaxed">
-                Explore our curated European ateliers and click the heart icon on any piece to save it here for later.
+                Explore our curated luxury collections and click the heart icon on any piece to save it here for later.
               </p>
               <Link
                 href="/shop"

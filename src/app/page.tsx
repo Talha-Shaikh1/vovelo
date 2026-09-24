@@ -5,47 +5,49 @@ import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { NextLevelHero } from '@/components/storefront/NextLevelHero';
-import { getProducts, getCategories, getBlogPosts, getSiteSettings, getAllTenants } from '@/lib/data-service';
+import { InfiniteProductFeed } from '@/components/storefront/InfiniteProductFeed';
+import { getProducts, getCategories, getSiteSettings, getAllTenants, getCuratedFeaturedProducts } from '@/lib/data-service';
 import {
   ArrowRight,
   Sparkles,
   Truck,
   RotateCcw,
   ShieldCheck,
-  Leaf,
+  Award,
   Star,
   ChevronRight,
   Store,
-  MapPin,
+  Tag,
+  PackageCheck,
 } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Volvelo — Luxury Timepieces, Footwear, Atelier Apparel & Fine Jewellery | Europe',
+  title: 'Volvelo — Haute Couture Luxury Archive, Handbags, Watches & Designer Goods',
   description:
-    'Shop handcrafted Swiss automatic chronographs, Blake-stitched Italian leather shoes, Milanese mulberry silk apparel, and 18K solid gold fine jewellery directly from verified European ateliers.',
+    'Discover curated 1:1 master quality designer handbags, Swiss automatic timepieces, handcrafted leather footwear, and luxury accessories. 7-day inspection guarantee and express direct delivery.',
   keywords: [
-    'luxury watches europe',
-    'swiss automatic chronographs',
-    'italian leather shoes',
-    'tuscan loafers',
-    '18k solid gold jewellery',
-    'mulberry silk slip dress',
-    'cashmere knitwear',
-    'european luxury ateliers',
-    'volvelo',
+    '1:1 master quality luxury goods',
+    'designer handbags archive',
+    'swiss automatic watches',
+    'luxury leather sneakers boots',
+    'designer sunglasses polarized',
+    'italian leather belts wallets',
+    'designer outerwear coats',
+    'volvelo luxury archive',
+    'express worldwide shipping 7-day returns',
   ],
   alternates: {
     canonical: 'https://volvelo.com',
   },
   openGraph: {
-    title: 'Volvelo — Luxury European Timepieces, Footwear & Haute Craft',
+    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
     description:
-      'Direct atelier fulfillment from Geneva, Florence, Milan, and Paris. 7-day returns & carbon-neutral express delivery.',
+      'Curated master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
     url: 'https://volvelo.com',
     siteName: 'Volvelo',
-    locale: 'en_EU',
+    locale: 'en_US',
     type: 'website',
   },
 };
@@ -55,16 +57,15 @@ export default async function HomePage() {
     await Promise.all([
       getSiteSettings(),
       getCategories(),
-      getProducts({ sort: 'seo', limit: 8 }),
+      getCuratedFeaturedProducts(64),
       getProducts({ limit: 20 }),
       getAllTenants(),
     ]);
 
   const activeTenants = allTenants.filter((t) => t.status === 'ACTIVE');
-
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
 
-  // Comprehensive JSON-LD Structured Data for Technical SEO, Semantic Search & AEO
+  // Comprehensive JSON-LD Structured Data for Technical SEO, Semantic Search & AEO (Perplexity, ChatGPT, Gemini, Google AI)
   const jsonLdOrganization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -72,14 +73,13 @@ export default async function HomePage() {
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     description:
-      'European luxury multi-tenant marketplace connecting discerning clients with certified Swiss watchmakers, Tuscan cordwainers, Milanese tailors, and Parisian high jewellers.',
+      'Haute couture luxury archive offering curated 1:1 master quality designer handbags, automatic chronographs, leather footwear, and accessories with express delivery and 7-day returns.',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: settings.contactPhone || '+49 30 555 3829',
       contactType: 'customer concierge',
       email: settings.contactEmail || 'concierge@volvelo.com',
-      areaServed: 'EU',
-      availableLanguage: ['English', 'German', 'French', 'Italian'],
+      availableLanguage: ['English', 'German', 'French', 'Italian', 'Spanish'],
     },
     sameAs: [
       'https://instagram.com/volvelo',
@@ -105,34 +105,34 @@ export default async function HomePage() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Where are Volvelo products crafted and are they authentic?',
+        name: 'What quality grade are the products on Volvelo?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Every product on Volvelo is handcrafted by verified independent European ateliers: Swiss automatic chronographs in Geneva, Blake-stitched footwear in Florence (Tuscany), mulberry silk apparel in Milan, and 18k solid gold jewellery in Paris. All items ship directly from the artisan workshop with authenticity certificates.',
+          text: 'Every item on Volvelo is 1:1 Master Quality, crafted with exact imported genuine leather, weighted metal hardware, automatic watch movements, and precise structural stitching matching original luxury specifications.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Are the materials, gold, and gemstones ethically certified?',
+        name: 'Does my order include branded packaging and dustbag?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. All jewellery pieces are forged in RJC-certified 18K recycled solid gold with conflict-free diamonds. Apparel is woven from OEKO-TEX 100% mulberry silk and Grade-A Cariaggi cashmere, while footwear uses vegetable-tanned Italian box-calf leather.',
+          text: 'Yes. All handbags, footwear, watches, and accessories arrive complete with signature branded gift box, protective dustbag, and documentation.',
         },
       },
       {
         '@type': 'Question',
-        name: 'How fast is express delivery across Europe and internationally?',
+        name: 'How fast is express delivery?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Orders are dispatched within 24-48 hours directly from the European maker atelier. Delivery takes 2–4 business days via DHL Express with full tracking and complimentary climate-neutral shipping on orders over €50.',
+          text: 'Orders are dispatched within 24-48 hours direct from our fulfillment warehouse. Standard transit time is 2–4 business days with real-time tracking.',
         },
       },
       {
         '@type': 'Question',
-        name: 'What is the return and exchange policy?',
+        name: 'What is the 7-day inspection and return policy?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We offer a 7-day inspection and return guarantee. If your timepiece, shoes, or apparel do not fit perfectly, returns and exchanges are complimentary within 7 days in original unworn condition with atelier tags.',
+          text: 'We provide a 100% risk-free 7-day inspection guarantee. If your order does not meet your expectations or sizing needs, returns and exchanges are honored within 7 days.',
         },
       },
     ],
@@ -141,7 +141,7 @@ export default async function HomePage() {
   const jsonLdItemList = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Most Loved Essentials',
+    name: 'Bestselling Luxury Essentials',
     itemListElement: bestsellers.map((p, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
@@ -176,31 +176,31 @@ export default async function HomePage() {
         {/* 1. Next-Level Interactive Hero Showcase */}
         <NextLevelHero products={allProducts} />
 
-        {/* 2. Shop by Department Grid */}
+        {/* 2. Shop by Luxury Department */}
         <section
-          aria-label="Product Categories"
+          aria-label="Luxury Departments"
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
         >
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#111111]">
-                Shop by Department
+                Shop by Luxury Department
               </h2>
               <p className="text-xs sm:text-sm text-[#666660] mt-1">
-                Consciously designed essentials across apparel, footwear, and carry.
+                Curated 1:1 master quality collections across bags, footwear, timepieces, and outerwear.
               </p>
             </div>
             <Link
               href="/shop"
               className="text-xs font-semibold text-[#0F5132] hover:underline flex items-center gap-1"
             >
-              <span>Explore full catalog</span>
+              <span>Explore full catalog (5,300+ items)</span>
               <ArrowRight size={13} />
             </Link>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {categories.map((cat) => (
+            {categories.slice(0, 8).map((cat) => (
               <Link
                 key={cat.id}
                 href={`/category/${cat.slug}`}
@@ -215,7 +215,7 @@ export default async function HomePage() {
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
                 <div className="relative z-10 text-white">
                   <h3 className="font-bold text-base md:text-lg">{cat.name}</h3>
                   <p className="text-[11px] text-gray-200 line-clamp-1 mt-0.5">
@@ -227,7 +227,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 3. Most Loved / Bestselling Essentials */}
+        {/* 3. Infinite Stream Luxury Archive Feed */}
         <section
           aria-label="Bestselling Products"
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
@@ -236,55 +236,54 @@ export default async function HomePage() {
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F5132] uppercase tracking-wider mb-1">
                 <Star size={14} className="fill-[#0F5132]" />
-                <span>Customer Favorites</span>
+                <span>Curated Luxury Feed</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-extrabold text-[#111111]">
-                Most Loved Essentials
+                1:1 Master Quality Archive
               </h2>
               <p className="text-xs sm:text-sm text-[#666660] mt-1 max-w-lg">
-                The core rotation of garments, shoes, and bags trusted by thousands across Europe for daily life and travel.
+                Discover 60+ hand-selected pieces across handbags, chronographs, footwear, and apparel with smooth progressive stream.
               </p>
             </div>
             <Link
               href="/shop"
               className="text-xs font-semibold text-[#0F5132] hover:underline flex items-center gap-1 shrink-0"
             >
-              <span>View all products</span>
+              <span>View all 5,300+ items</span>
               <ArrowRight size={13} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {bestsellers.map((product, idx) => (
-              <ProductCard key={product.id} product={product} priority={idx < 4} />
-            ))}
-          </div>
+          <InfiniteProductFeed
+            initialProducts={bestsellers}
+            categories={categories}
+          />
         </section>
 
-        {/* 4. Customer Brand Pillars & Sustainability */}
+        {/* 4. Brand Philosophy & Master Craft Pillars */}
         <section
-          aria-label="Brand Philosophy"
+          aria-label="Quality Standards"
           className="bg-[#111111] text-[#FAFAF8] py-16 md:py-20 my-16"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-6 space-y-5">
                 <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
-                  Ethical European Craftsmanship
+                  Uncompromising Standards
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
-                  Crafted for Daily Movement. <br />
-                  <span className="text-emerald-400">Engineered to Endure.</span>
+                  1:1 Master Quality. <br />
+                  <span className="text-emerald-400">Exact Weight & Detailing.</span>
                 </h2>
                 <p className="text-sm text-[#999990] leading-relaxed">
-                  We partner directly with verified independent European ateliers to craft timeless goods without traditional retail markups. Every thread, zipper, and seam is tested to outlast seasonal trends.
+                  We specialize in premium mirror-grade luxury goods. Every handbag, chronograph, and pair of shoes is produced using genuine imported leather, durable heavy hardware, and precise logo engravings.
                 </p>
                 <div className="pt-2 flex flex-wrap gap-4">
                   <Link
                     href="/shop"
                     className="px-6 py-3 bg-[#0F5132] hover:bg-[#0A3622] text-white text-xs font-semibold rounded-xl transition-colors shadow-sm"
                   >
-                    Discover the Collection
+                    Explore All Collections
                   </Link>
                 </div>
               </div>
@@ -293,21 +292,21 @@ export default async function HomePage() {
               <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-[#1C1C1A] p-6 rounded-2xl border border-[#2B2B28] space-y-2">
                   <div className="w-10 h-10 rounded-xl bg-[#0F5132]/30 text-emerald-400 flex items-center justify-center">
-                    <Leaf size={20} />
+                    <Award size={20} />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Natural Fibers</h3>
+                  <h3 className="text-sm font-bold text-white">1:1 Precision Craft</h3>
                   <p className="text-xs text-[#999990] leading-relaxed">
-                    100% GOTS organic cotton and renewable ZQ-certified merino wool.
+                    Accurate dimensions, date stamps, logo engravings, and weighted hardware.
                   </p>
                 </div>
 
                 <div className="bg-[#1C1C1A] p-6 rounded-2xl border border-[#2B2B28] space-y-2">
                   <div className="w-10 h-10 rounded-xl bg-[#0F5132]/30 text-emerald-400 flex items-center justify-center">
-                    <Truck size={20} />
+                    <PackageCheck size={20} />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Carbon-Neutral Shipping</h3>
+                  <h3 className="text-sm font-bold text-white">Complete Packaging</h3>
                   <p className="text-xs text-[#999990] leading-relaxed">
-                    100% offset logistics and FSC-certified plastic-free packaging.
+                    Full presentation including branded dustbag, gift box, and authenticity cards.
                   </p>
                 </div>
 
@@ -315,19 +314,19 @@ export default async function HomePage() {
                   <div className="w-10 h-10 rounded-xl bg-[#0F5132]/30 text-emerald-400 flex items-center justify-center">
                     <RotateCcw size={20} />
                   </div>
-                  <h3 className="text-sm font-bold text-white">7-Day Return Policy</h3>
+                  <h3 className="text-sm font-bold text-white">7-Day Inspection</h3>
                   <p className="text-xs text-[#999990] leading-relaxed">
-                    7 days to try on and inspect your atelier pieces with original tags intact.
+                    7 days to inspect your item with a hassle-free money-back guarantee.
                   </p>
                 </div>
 
                 <div className="bg-[#1C1C1A] p-6 rounded-2xl border border-[#2B2B28] space-y-2">
                   <div className="w-10 h-10 rounded-xl bg-[#0F5132]/30 text-emerald-400 flex items-center justify-center">
-                    <ShieldCheck size={20} />
+                    <Truck size={20} />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Direct Workshop Pricing</h3>
+                  <h3 className="text-sm font-bold text-white">Discreet Express Delivery</h3>
                   <p className="text-xs text-[#999990] leading-relaxed">
-                    Transparent pricing directly from makers with zero unnecessary middlemen.
+                    Direct warehouse dispatch with discreet packaging and live tracking.
                   </p>
                 </div>
               </div>
@@ -335,114 +334,72 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 4.5. Featured European Independent Ateliers Showcase */}
+        {/* 5. Featured Designers & Brands */}
         {activeTenants.length > 0 && (
           <section
-            aria-label="Independent European Makers"
+            aria-label="Featured Brands"
             className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
           >
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
               <div>
                 <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F5132] uppercase tracking-wider mb-1">
-                  <Store size={14} />
-                  <span>Verified European Workshops</span>
+                  <Tag size={14} />
+                  <span>Featured Designer Houses</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-extrabold text-[#111111]">
-                  Meet the Independent Ateliers
+                  Explore by Designer
                 </h2>
                 <p className="text-xs sm:text-sm text-[#666660] mt-1 max-w-xl">
-                  Each garment and piece of gear is crafted by verified independent craftspeople across Europe. Explore their ateliers and stories.
+                  Browse iconic collections from prestigious luxury fashion houses.
                 </p>
               </div>
               <Link
-                href="/sell-with-us"
+                href="/shop"
                 className="text-xs font-semibold text-[#0F5132] hover:underline flex items-center gap-1 shrink-0"
               >
-                <span>Are you a maker? Join our collective →</span>
+                <span>View all brands →</span>
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {activeTenants.slice(0, 3).map((tenant) => {
-                const tenantProducts = allProducts.filter((p) => p.tenantId === tenant.id);
-
-                return (
-                  <div
-                    key={tenant.id}
-                    className="bg-white rounded-3xl border border-[#E4E4E0] p-6 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-5"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-xl bg-[#0F5132] text-white flex items-center justify-center font-black text-sm shadow-xs">
-                          {tenant.name.slice(0, 1)}
-                        </div>
-                        {tenant.country && (
-                          <span className="text-xs font-bold text-[#666660] flex items-center gap-1 bg-[#F0F0EC] px-2.5 py-1 rounded-full">
-                            <MapPin size={12} className="text-[#0F5132]" />
-                            <span>
-                              {tenant.city ? `${tenant.city}, ` : ''}{tenant.country}
-                            </span>
-                          </span>
-                        )}
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-bold text-[#111111]">{tenant.name}</h3>
-                        <p className="text-xs text-[#666660] mt-1 line-clamp-2 leading-relaxed">
-                          {tenant.story || 'Independent European maker dedicated to sustainable, high-precision craft.'}
-                        </p>
-                      </div>
-
-                      {tenant.ecoBadges && tenant.ecoBadges.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                          {tenant.ecoBadges.slice(0, 2).map((badge, bIdx) => (
-                            <span
-                              key={bIdx}
-                              className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md"
-                            >
-                              {badge}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="pt-4 border-t border-[#F0F0EC] flex items-center justify-between">
-                      <span className="text-xs text-[#666660] font-medium">
-                        {tenantProducts.length} {tenantProducts.length === 1 ? 'artisan piece' : 'artisan pieces'}
-                      </span>
-                      <Link
-                        href={`/brand/${tenant.slug}`}
-                        className="text-xs font-bold text-[#0F5132] hover:text-[#0A3622] flex items-center gap-1"
-                      >
-                        <span>Visit Atelier</span>
-                        <ArrowRight size={12} />
-                      </Link>
-                    </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              {activeTenants.slice(0, 12).map((tenant) => (
+                <Link
+                  key={tenant.id}
+                  href={`/shop?tenant=${tenant.slug}`}
+                  className="bg-white rounded-2xl border border-[#E4E4E0] p-4 text-center hover:border-[#0F5132] hover:bg-[#F9FAF9] transition-all group shadow-2xs"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-[#0F5132] text-white flex items-center justify-center font-bold text-sm mx-auto mb-2 shadow-xs group-hover:scale-105 transition-transform">
+                    {tenant.name.slice(0, 1)}
                   </div>
-                );
-              })}
+                  <h4 className="text-xs font-bold text-[#111111] group-hover:text-[#0F5132] transition-colors truncate">
+                    {tenant.name}
+                  </h4>
+                  <span className="text-[10px] text-[#666660] block mt-0.5">
+                    1:1 Master Archive
+                  </span>
+                </Link>
+              ))}
             </div>
           </section>
         )}
 
-        {/* 5. Customer Testimonials / Social Proof */}
+        {/* 6. Customer Testimonials / Social Proof */}
         <section
           aria-label="Customer Reviews"
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
         >
           <div className="text-center max-w-xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-[#0F5132]">
-              Verified Customer Stories
+              Verified Client Feedback
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111111] mt-1">
-              Loved Across Europe
+              Trusted by Luxury Enthusiasts
             </h2>
             <div className="flex items-center justify-center gap-1 text-amber-500 mt-2">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={16} className="fill-amber-500" />
               ))}
-              <span className="text-xs font-bold text-[#111111] ml-2">4.9 / 5.0 (2,400+ reviews)</span>
+              <span className="text-xs font-bold text-[#111111] ml-2">4.9 / 5.0 (3,100+ orders)</span>
             </div>
           </div>
 
@@ -454,11 +411,11 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-xs sm:text-sm text-[#111111] leading-relaxed italic">
-                "The Merino Wool Runners are without doubt the most comfortable shoes I've ever worn. Walked 18,000 steps in Berlin on day one with zero break-in needed."
+                "Received my handbag in 3 days. The leather smell, weighted chain, and stitching are 100% indistinguishable. Came with complete box and dustbag."
               </p>
               <div className="pt-2 border-t border-[#F0F0EC] text-xs">
-                <span className="font-bold text-[#111111] block">Janine K.</span>
-                <span className="text-[#666660] text-[11px]">Berlin, Germany • Verified Buyer</span>
+                <span className="font-bold text-[#111111] block">Sophia M.</span>
+                <span className="text-[#666660] text-[11px]">Verified Client</span>
               </div>
             </div>
 
@@ -469,11 +426,11 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-xs sm:text-sm text-[#111111] leading-relaxed italic">
-                "The 240 GSM organic crewneck fits like luxury designer pieces. The collar stays rigid wash after wash. Ordering two more in the forest pine shade."
+                "The automatic timepiece is flawless. Ceramic bezel clicks crisply, sweeping second hand is smooth, and the weight on the wrist feels solid."
               </p>
               <div className="pt-2 border-t border-[#F0F0EC] text-xs">
-                <span className="font-bold text-[#111111] block">Mathieu D.</span>
-                <span className="text-[#666660] text-[11px]">Lyon, France • Verified Buyer</span>
+                <span className="font-bold text-[#111111] block">Marcus T.</span>
+                <span className="text-[#666660] text-[11px]">Verified Client</span>
               </div>
             </div>
 
@@ -484,11 +441,11 @@ export default async function HomePage() {
                 ))}
               </div>
               <p className="text-xs sm:text-sm text-[#111111] leading-relaxed italic">
-                "Waterproof Commuter Backpack survived Amsterdam rainy season perfectly. The laptop sleeve and roll-top structure are pure engineering perfection."
+                "Super fast discreet delivery. Sizing was spot on for the sneakers and the leather quality is premium grade. Definitely ordering again."
               </p>
               <div className="pt-2 border-t border-[#F0F0EC] text-xs">
-                <span className="font-bold text-[#111111] block">Sven V.</span>
-                <span className="text-[#666660] text-[11px]">Amsterdam, Netherlands • Verified Buyer</span>
+                <span className="font-bold text-[#111111] block">Alex R.</span>
+                <span className="text-[#666660] text-[11px]">Verified Client</span>
               </div>
             </div>
           </div>
@@ -501,66 +458,66 @@ export default async function HomePage() {
         >
           <div className="text-center mb-10">
             <span className="text-xs font-bold uppercase tracking-wider text-[#0F5132]">
-              Customer Care
+              Customer Assistance
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111111] mt-1">
               Frequently Asked Questions
             </h2>
             <p className="text-xs sm:text-sm text-[#666660] mt-1">
-              Everything you need to know about our materials, shipping, and ordering.
+              Everything you need to know about our quality grade, packaging, and delivery.
             </p>
           </div>
 
           <div className="space-y-4">
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>What materials are used in Volvelo products?</span>
+                <span>What quality grade are the products on Volvelo?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"
                 />
               </summary>
               <p className="text-xs text-[#666660] mt-3 leading-relaxed">
-                Volvelo utilizes sustainably sourced natural and recycled materials including certified ZQ Merino wool, GOTS-certified organic combed cotton (240 GSM), and 100% recycled 900D ballistic nylon.
+                Every piece is 1:1 Master Quality, utilizing imported genuine leather, heavy brass/steel hardware, exact date stamps, and automatic movements matching luxury benchmarks.
               </p>
             </details>
 
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>Do I need to create an account to order?</span>
+                <span>Does my order arrive with complete branded box and dustbag?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"
                 />
               </summary>
               <p className="text-xs text-[#666660] mt-3 leading-relaxed">
-                No! We offer 100% frictionless Express Guest Checkout. You can place an order directly with your delivery address without creating a password or logging in.
+                Yes! Every product arrives packaged in its signature branded gift box, protective dustbag, and documentation for complete boutique presentation.
               </p>
             </details>
 
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>How fast is European shipping and what are the rates?</span>
+                <span>How fast is delivery and is it tracked?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"
                 />
               </summary>
               <p className="text-xs text-[#666660] mt-3 leading-relaxed">
-                Shipping is FREE on all orders over €50 across Germany, France, Netherlands, Austria, and all EU member states. Orders are dispatched in 24 hours and delivered in 2–4 business days via DHL/DPD with carbon-neutral logistics.
+                Orders are dispatched within 24–48 hours in discreet double-boxed packaging. Delivery typically takes 2–4 business days with real-time online tracking.
               </p>
             </details>
 
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>What is the 7-Day Return Policy?</span>
+                <span>What is the 7-Day Return Guarantee?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"
                 />
               </summary>
               <p className="text-xs text-[#666660] mt-3 leading-relaxed">
-                We offer a 7-day inspection and return guarantee. If your timepiece, shoes, or apparel do not fit as desired, you can request an exchange or return within 7 days in original unworn condition with tags intact.
+                We offer a complete 7-day inspection guarantee. If you are not 100% satisfied with the quality or fit, you can easily exchange or return your item within 7 days.
               </p>
             </details>
           </div>

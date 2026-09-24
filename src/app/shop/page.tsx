@@ -4,7 +4,8 @@ import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { CategoryFilters } from '@/components/storefront/CategoryFilters';
-import { getProducts, getCategories, getAllTenants, getSiteSettings } from '@/lib/data-service';
+import { Pagination } from '@/components/storefront/Pagination';
+import { getPaginatedProducts, getCategories, getAllTenants, getSiteSettings } from '@/lib/data-service';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'All Luxury Collections & European Goods | Volvelo',
-    description: 'Explore the full luxury catalog from verified European ateliers.',
+    description: 'Explore the full 1:1 master luxury catalog with verified authentic quality.',
     url: 'https://volvelo.com/shop',
   },
 };
@@ -31,6 +32,7 @@ interface ShopPageProps {
     inStock?: string;
     search?: string;
     tenant?: string;
+    page?: string;
   }>;
 }
 
@@ -44,13 +46,17 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     inStock,
     search,
     tenant,
+    page = '1',
   } = resolvedParams;
 
-  const [settings, categories, tenants, products] = await Promise.all([
+  const currentPage = parseInt(page, 10) || 1;
+  const pageSize = 24;
+
+  const [settings, categories, tenants, paginationResult] = await Promise.all([
     getSiteSettings(),
     getCategories(),
     getAllTenants(),
-    getProducts({
+    getPaginatedProducts({
       categorySlug: category,
       sort,
       minPrice: minPrice ? parseFloat(minPrice) : undefined,
@@ -58,8 +64,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       inStockOnly: inStock === 'true',
       search,
       tenantSlug: tenant,
+      page: currentPage,
+      pageSize,
     }),
   ]);
+
+  const { products, total, totalPages } = paginationResult;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-[#111111]">
@@ -72,7 +82,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             {search ? `Search Results for "${search}"` : 'All Products & Essentials'}
           </h1>
           <p className="text-xs text-[#666660] mt-1.5">
-            Showing {products.length} products • Curated European luxury collection
+            Showing {products.length} of {total.toLocaleString()} products • Curated European luxury collection
           </p>
         </div>
 
@@ -99,11 +109,20 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={total}
+                  pageSize={pageSize}
+                />
+              </>
             )}
           </div>
         </div>

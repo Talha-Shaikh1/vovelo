@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { CartDrawer } from '@/components/storefront/CartDrawer';
 import { CookieConsent } from '@/components/storefront/CookieConsent';
+import { ToastContainer } from '@/components/storefront/ToastContainer';
 import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({
@@ -26,25 +27,27 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Volvelo — Luxury Timepieces, Footwear, Atelier Apparel & Fine Jewellery | Europe',
+    default: 'Volvelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
     template: '%s | Volvelo',
   },
   description:
-    'Discover handcrafted Swiss automatic chronographs, Blake-stitched Italian leather footwear, Milanese mulberry silk apparel, and 18K solid gold fine jewellery directly from verified European ateliers. Carbon-neutral express delivery.',
+    'Explore curated 1:1 master quality designer handbags, Swiss automatic timepieces, handcrafted leather footwear, luxury sunglasses, and ready-to-wear archive. 7-day return guarantee & express delivery.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com'),
   applicationName: 'Volvelo',
-  authors: [{ name: 'Volvelo Design Studio', url: 'https://volvelo.com' }],
+  authors: [{ name: 'Volvelo Luxury Archive', url: 'https://volvelo.com' }],
   generator: 'Next.js',
   keywords: [
-    'luxury watches europe',
-    'swiss automatic chronographs',
-    'italian leather shoes',
-    'tuscan loafers',
-    '18k solid gold jewellery',
-    'mulberry silk dresses',
-    'cashmere knitwear',
-    'european atelier marketplace',
-    'volvelo',
+    '1:1 master quality luxury goods',
+    'designer handbags archive',
+    'swiss automatic watches',
+    'luxury leather footwear sneakers',
+    'designer sunglasses polarized',
+    'italian leather belts wallets',
+    'couture coats outerwear',
+    'luxury designer collection',
+    'high grade designer archive',
+    'volvelo luxury',
+    'express delivery 7 day returns',
   ],
   referrer: 'origin-when-cross-origin',
   creator: 'Volvelo',
@@ -72,26 +75,30 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Volvelo — European Luxury Timepieces, Footwear, Silk Apparel & Fine Jewellery',
-    description: 'Direct fulfillment from certified European ateliers. 7-day returns & carbon-neutral delivery.',
+    title: 'Volvelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
+    description: 'Curated master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
     siteName: 'Volvelo',
-    locale: 'en_EU',
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Volvelo — European Luxury Timepieces, Footwear, Silk Apparel & Fine Jewellery',
-    description: 'Direct fulfillment from certified European ateliers. 7-day returns & carbon-neutral delivery.',
+    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+    description: 'Curated master quality designer goods, timepieces, leather footwear & accessories with 7-day returns.',
     creator: '@volvelo',
   },
 };
 
-export default function RootLayout({
+import { getSiteSettings } from '@/lib/data-service';
+import { AnalyticsScripts } from '@/components/storefront/AnalyticsScripts';
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const settings = await getSiteSettings();
 
   const globalJsonLd = {
     '@context': 'https://schema.org',
@@ -99,23 +106,24 @@ export default function RootLayout({
       {
         '@type': 'Organization',
         '@id': `${baseUrl}/#organization`,
-        name: 'Volvelo',
+        name: settings.storeName || 'Volvelo',
         url: baseUrl,
-        logo: `${baseUrl}/logo.png`,
+        logo: settings.logoUrl || `${baseUrl}/logo.png`,
         description:
-          'European luxury multi-tenant marketplace connecting discerning buyers with verified Swiss horologists, Tuscan cordwainers, Milanese tailors, and Parisian high jewellers.',
+          settings.defaultMetaDescription ||
+          'Haute couture luxury archive offering curated 1:1 master quality designer handbags, automatic chronographs, leather footwear, and accessories with express delivery and 7-day returns.',
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer concierge',
-          email: 'concierge@volvelo.com',
-          availableLanguage: ['English', 'German', 'French', 'Italian'],
+          email: settings.contactEmail || 'concierge@volvelo.com',
+          availableLanguage: ['English', 'German', 'French', 'Italian', 'Spanish'],
         },
       },
       {
         '@type': 'WebSite',
         '@id': `${baseUrl}/#website`,
         url: baseUrl,
-        name: 'Volvelo',
+        name: settings.storeName || 'Volvelo',
         publisher: {
           '@id': `${baseUrl}/#organization`,
         },
@@ -131,6 +139,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased overflow-x-hidden`}>
       <head>
+        {/* Verification Meta Tags */}
+        {settings.googleSiteVerification && (
+          <meta name="google-site-verification" content={settings.googleSiteVerification} />
+        )}
+        {settings.bingSiteVerification && (
+          <meta name="msvalidate.01" content={settings.bingSiteVerification} />
+        )}
+        {settings.pinterestVerification && (
+          <meta name="p:domain_verify" content={settings.pinterestVerification} />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(globalJsonLd) }}
@@ -141,6 +159,8 @@ export default function RootLayout({
           {children}
           <CartDrawer />
           <CookieConsent />
+          <ToastContainer />
+          <AnalyticsScripts settings={settings} />
         </ClerkProvider>
       </body>
     </html>

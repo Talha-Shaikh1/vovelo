@@ -1,11 +1,14 @@
 import React from 'react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { CategoryFilters } from '@/components/storefront/CategoryFilters';
-import { getProducts, getCategories, getCategoryBySlug, getAllTenants, getSiteSettings } from '@/lib/data-service';
+import { Pagination } from '@/components/storefront/Pagination';
+import { getPaginatedProducts, getCategories, getCategoryBySlug, getAllTenants, getSiteSettings } from '@/lib/data-service';
+import { ChevronRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,6 +22,7 @@ interface CategoryPageProps {
     search?: string;
     tenant?: string;
     sub?: string;
+    page?: string;
   }>;
 }
 
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const description =
     category.seoDescription ||
     category.description ||
-    `Shop handcrafted ${category.name} from certified European ateliers.`;
+    `Shop 1:1 master quality ${category.name} with express delivery and 7-day guarantee.`;
 
   return {
     title,
@@ -71,14 +75,18 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     search,
     tenant,
     sub,
+    page = '1',
   } = resolvedParams;
 
-  const [category, settings, categories, tenants, products] = await Promise.all([
+  const currentPage = parseInt(page, 10) || 1;
+  const pageSize = 24;
+
+  const [category, settings, categories, tenants, paginationResult] = await Promise.all([
     getCategoryBySlug(slug),
     getSiteSettings(),
     getCategories(),
     getAllTenants(),
-    getProducts({
+    getPaginatedProducts({
       categorySlug: slug,
       sort,
       minPrice: minPrice ? parseFloat(minPrice) : undefined,
@@ -86,12 +94,16 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       inStockOnly: inStock === 'true',
       search: search || sub,
       tenantSlug: tenant,
+      page: currentPage,
+      pageSize,
     }),
   ]);
 
   if (!category) {
     notFound();
   }
+
+  const { products, total, totalPages } = paginationResult;
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
   const categoryUrl = `${baseUrl}/category/${category.slug}`;
@@ -127,6 +139,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       {
         '@type': 'ListItem',
         position: 2,
+        name: 'All Categories',
+        item: `${baseUrl}/categories`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
         name: category.name,
         item: categoryUrl,
       },
@@ -146,7 +164,25 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
       <Header announcement={settings.announcementText} />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+        {/* Breadcrumb Navigation */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-1.5 text-xs text-[#666660] mb-6 overflow-x-auto no-scrollbar"
+        >
+          <Link href="/" className="hover:text-[#111111] transition-colors shrink-0">
+            Home
+          </Link>
+          <ChevronRight size={12} className="shrink-0" />
+          <Link href="/categories" className="hover:text-[#111111] transition-colors shrink-0">
+            All Categories
+          </Link>
+          <ChevronRight size={12} className="shrink-0" />
+          <span className="font-semibold text-[#111111] truncate shrink-0">
+            {category.name}
+          </span>
+        </nav>
+
         {/* Category Header Hero */}
         <div className="relative rounded-2xl bg-[#F0F0EC] p-8 md:p-12 mb-8 border border-[#E4E4E0] overflow-hidden">
           <div className="max-w-2xl relative z-10 space-y-2">
@@ -199,11 +235,20 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                  {products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  totalItems={total}
+                  pageSize={pageSize}
+                />
+              </>
             )}
           </div>
         </div>

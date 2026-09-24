@@ -98,36 +98,43 @@ export function VariantSelector({
 
             {/* If Color, render luxury circular swatches */}
             {isColorType ? (
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2.5">
                 {uniqueValues.map((val) => {
                   const isSelected = currentValue === val;
                   const hex = getColorHex(val);
+
+                  // Find variant image for this specific color option
+                  const colorVariant = variants.find(
+                    (v) => (v.optionValues as Record<string, string>)?.[optType] === val
+                  );
+                  const variantImage = colorVariant?.image;
 
                   return (
                     <button
                       key={val}
                       type="button"
                       onClick={() => handleOptionChange(optType, val)}
-                      className={`group relative flex items-center justify-center w-9 h-9 rounded-full transition-all ${
+                      className={`group relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                         isSelected
-                          ? 'ring-2 ring-[#0F5132] ring-offset-2 scale-105'
-                          : 'hover:scale-105 border border-[#E4E4E0]'
+                          ? 'bg-[#111111] text-white ring-2 ring-[#0F5132] shadow-sm'
+                          : 'bg-white text-[#111111] border border-[#E4E4E0] hover:border-[#111111] hover:bg-[#F0F0EC]'
                       }`}
                       title={val}
                     >
-                      <span
-                        className="w-full h-full rounded-full border border-black/10 flex items-center justify-center shadow-inner"
-                        style={{ backgroundColor: hex }}
-                      >
-                        {isSelected && (
-                          <Check
-                            size={14}
-                            className={
-                              hex === '#F4F4F0' ? 'text-black' : 'text-white'
-                            }
-                          />
-                        )}
-                      </span>
+                      {variantImage ? (
+                        <img
+                          src={variantImage}
+                          alt={val}
+                          className="w-5 h-5 rounded-md object-cover border border-white/20 shrink-0"
+                        />
+                      ) : (
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border border-black/15 shadow-inner shrink-0"
+                          style={{ backgroundColor: hex }}
+                        />
+                      )}
+                      <span>{val}</span>
+                      {isSelected && <Check size={12} className="text-emerald-400 shrink-0" />}
                     </button>
                   );
                 })}

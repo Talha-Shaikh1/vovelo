@@ -149,7 +149,7 @@ export function CategoryFilters({
       {/* Price Range */}
       <div className="space-y-3">
         <label className="text-xs font-semibold text-[#111111] uppercase tracking-wider block">
-          Price Range (€)
+          Price Range ($)
         </label>
         <form onSubmit={handleApplyPrice} className="space-y-2">
           <div className="flex items-center gap-2">

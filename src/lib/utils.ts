@@ -12,16 +12,14 @@ export function formatPrice(
     notation?: Intl.NumberFormatOptions["notation"];
   } = {}
 ) {
-  const { currency = "EUR", notation = "compact" } = options;
-
   const numericPrice = typeof price === "string" ? parseFloat(price) : price;
 
-  return new Intl.NumberFormat("en-EU", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency,
+    currency: "USD",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(numericPrice);
+  }).format(numericPrice || 0);
 }
 
 export function slugify(text: string): string {

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/cart-store';
 import { PriceDisplay } from '@/components/storefront/PriceDisplay';
+import { BrandLogo } from '@/components/storefront/BrandLogo';
 import {
   ShieldCheck,
   Lock,
@@ -202,7 +203,7 @@ export default function CheckoutPage() {
             href="/"
             className="flex items-center gap-2"
           >
-            <img src="/logo.png" alt="Volvelo" className="h-7 w-auto object-contain" />
+            <BrandLogo size="sm" />
           </Link>
 
           <div className="flex items-center gap-2 text-xs font-semibold text-[#0F5132]">
@@ -666,11 +667,11 @@ export default function CheckoutPage() {
             <div className="pt-4 border-t border-[#E4E4E0] space-y-2.5 text-[11px] text-[#666660]">
               <div className="flex items-center gap-2">
                 <Truck size={14} className="text-[#0F5132]" />
-                <span>Dispatched within 24 hours from EU atelier</span>
+                <span>Dispatched within 24 hours with express tracking</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck size={14} className="text-[#0F5132]" />
-                <span>7-day inspection returns & direct maker warranty</span>
+                <span>7-day inspection returns & 1:1 master quality guarantee</span>
               </div>
             </div>
           </div>

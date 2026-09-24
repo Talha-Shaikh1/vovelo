@@ -287,7 +287,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
 
           {/* Product Details Accordions */}
           <div className="space-y-3 pt-4 border-t border-[#E4E4E0]">
-            {/* Materials Accordion */}
+            {/* Materials & Quality Accordion */}
             <div className="border border-[#E4E4E0] rounded-xl overflow-hidden bg-white">
               <button
                 type="button"
@@ -296,7 +296,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                 }
                 className="w-full p-4 text-left flex items-center justify-between font-semibold text-xs text-[#111111]"
               >
-                <span>Materials & Sustainable Crafting</span>
+                <span>Master Craft Quality & Specifications</span>
                 {openAccordion === 'materials' ? (
                   <ChevronUp size={16} />
                 ) : (
@@ -304,13 +304,20 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                 )}
               </button>
               {openAccordion === 'materials' && (
-                <div className="p-4 pt-0 text-xs text-[#666660] leading-relaxed border-t border-[#F0F0EC]">
-                  Every component is ethically sourced with certified OEKO-TEX® or GOTS organic standards. All dyes are non-toxic, and waste is minimized through closed-loop manufacturing.
+                <div className="p-4 pt-0 text-xs text-[#666660] leading-relaxed border-t border-[#F0F0EC] space-y-2">
+                  <p>
+                    Crafted with 1:1 precision using premium imported materials, weighted brass/steel hardware, and reinforced structural stitching. Complete branded packaging and protective dustbag included.
+                  </p>
+                  <ul className="list-disc pl-4 space-y-1 text-[11px]">
+                    <li>Exact dimensions, logos, date codes, and weight matching original specifications</li>
+                    <li>Full boutique presentation: gift box, dustbag, and care documentation</li>
+                    <li>Inspected and authenticated prior to express dispatch</li>
+                  </ul>
                 </div>
               )}
             </div>
 
-            {/* Shipping Accordion */}
+            {/* Shipping & 7-Day Guarantee Accordion */}
             <div className="border border-[#E4E4E0] rounded-xl overflow-hidden bg-white">
               <button
                 type="button"
@@ -319,7 +326,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                 }
                 className="w-full p-4 text-left flex items-center justify-between font-semibold text-xs text-[#111111]"
               >
-                <span>European Shipping & Returns</span>
+                <span>Express Delivery & 7-Day Return Guarantee</span>
                 {openAccordion === 'shipping' ? (
                   <ChevronUp size={16} />
                 ) : (
@@ -327,8 +334,15 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                 )}
               </button>
               {openAccordion === 'shipping' && (
-                <div className="p-4 pt-0 text-xs text-[#666660] leading-relaxed border-t border-[#F0F0EC]">
-                  Free standard shipping across Germany, France, Netherlands, and all EU member states on orders over €{settings?.freeShippingThreshold || 50}. Orders are dispatched within 24 hours with full track-and-trace.
+                <div className="p-4 pt-0 text-xs text-[#666660] leading-relaxed border-t border-[#F0F0EC] space-y-2">
+                  <p>
+                    Dispatched in discreet, double-boxed protective shipping with real-time tracking. Enjoy a risk-free 7-day inspection period upon receipt.
+                  </p>
+                  <ul className="list-disc pl-4 space-y-1 text-[11px]">
+                    <li>Dispatched within 24–48 hours direct from warehouse</li>
+                    <li>100% money-back or replacement guarantee within 7 days</li>
+                    <li>Discreet packaging with secure tracking updates</li>
+                  </ul>
                 </div>
               )}
             </div>

@@ -81,10 +81,10 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
           </div>
           <div>
             <h1 className="text-xl font-extrabold text-[#111111]">
-              No Active Atelier Linked
+              No Active Brand Linked
             </h1>
             <p className="text-xs text-[#666660] mt-2 leading-relaxed">
-              Your account <strong>{primaryEmail}</strong> does not have an active verified European atelier attached yet.
+              Your account <strong>{primaryEmail}</strong> does not have an active verified brand profile attached yet.
             </p>
           </div>
 

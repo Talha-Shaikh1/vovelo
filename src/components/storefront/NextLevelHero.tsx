@@ -14,69 +14,64 @@ interface NextLevelHeroProps {
 const HERO_SLIDES = [
   {
     id: 'slide-1',
-    productId: 'prod-merino-runner',
-    tag: 'Signature Footwear',
-    headline: 'Barefoot Comfort.',
-    subheadline: 'Engineered for 20,000+ City Steps.',
+    productId: 'prod-bags-balenciaga-1',
+    tag: 'Haute Leather Goods',
+    headline: 'Artisanal Elegance.',
+    subheadline: 'Designer Luxury Handbags.',
     description:
-      'Crafted from temperature-regulating superfine ZQ merino wool and sugarcane SweetFoam® outsoles. Machine washable, remarkably light, and odor-resistant.',
-    image:
-      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=85',
-    secondaryImage:
-      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80',
-    badge: '100% Superfine Merino Wool',
-    price: 110,
-    comparePrice: 135,
-    slug: 'merino-wool-all-day-runner',
-    maker: 'Nordic Atelier (Denmark)',
+      'Masterfully constructed with structured silhouettes, secure signature hardware, and 7-day return guarantee.',
+    image: '/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_',
+    secondaryImage: '/api/drive-image/1BvunNwc-Ja1tuxisy7iDpmal2-qj4yHn',
+    badge: '100% Full-Grain Quilted Leather',
+    price: 0,
+    comparePrice: 0,
+    slug: 'balenciaga-bags-1-1',
+    maker: 'Designer Handbag Collection',
     colorways: [
-      { name: 'Emerald Forest', hex: '#0F5132' },
-      { name: 'Charcoal Grey', hex: '#4A4A45' },
-      { name: 'Off-White Oatmeal', hex: '#EAE6DF' },
+      { name: 'Noir Black', hex: '#111111' },
+      { name: 'Classic Camel', hex: '#C19A6B' },
+      { name: 'Burgundy Red', hex: '#58111A' },
     ],
   },
   {
     id: 'slide-2',
-    productId: 'prod-commuter-backpack',
-    tag: 'Technical Everyday Carry',
-    headline: 'Defy European Rains.',
-    subheadline: 'Recycled 900D Ballistic Roll-Top.',
+    productId: 'prod-watches-audemars-piguet-1',
+    tag: 'Swiss Haute Horology',
+    headline: 'Timeless Precision.',
+    subheadline: 'Automatic Mechanical Chronometer.',
     description:
-      'Engineered from 100% recycled waterproof nylon. Features magnetic quick-access 16" laptop protection, ergonomic airflow back panel, and expandable 22L volume.',
-    image:
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1400&q=85',
-    secondaryImage:
-      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80',
-    badge: 'Waterproof Recycled Nylon',
-    price: 89,
-    comparePrice: 115,
-    slug: 'waterproof-roll-top-commuter-22l',
-    maker: 'Aura Studio (Germany)',
+      'Engineered with scratch-proof sapphire crystal, water-resistant casing, and precision automatic movement.',
+    image: '/api/drive-image/1m3mgDABbcqCMaH9wME7WyY5Fa2tYWcfy',
+    secondaryImage: '/api/drive-image/1nE5K2Tl34VuTXZeJWc8tve3b9rBGm0FI',
+    badge: 'Stainless Steel & Sapphire Glass',
+    price: 0,
+    comparePrice: 0,
+    slug: 'audemars-piguet-watches-1-1',
+    maker: 'Luxury Horology Collection',
     colorways: [
-      { name: 'Olive Emerald', hex: '#2A4736' },
-      { name: 'Stealth Black', hex: '#1C1C1C' },
+      { name: 'Polished Steel', hex: '#C0C0C0' },
+      { name: 'Gold Tone', hex: '#D4AF37' },
+      { name: 'Midnight Blue', hex: '#1B263B' },
     ],
   },
   {
     id: 'slide-3',
-    productId: 'prod-heavyweight-tee',
-    tag: 'Conscious Apparel',
-    headline: 'Structured Drape.',
-    subheadline: '240 GSM Combed Organic Cotton.',
+    productId: 'prod-hats-burberry-1',
+    tag: 'Heritage Designer Collection',
+    headline: 'Iconic Tartan.',
+    subheadline: 'Pure Wool & Gabardine Twill.',
     description:
-      'Substantial, heavyweight weave that holds its boxy collar and drape wash after wash. Ring-spun combed cotton crafted with zero toxic chemicals.',
-    image:
-      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1400&q=85',
-    secondaryImage:
-      'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80',
-    badge: 'GOTS Certified Organic 240 GSM',
-    price: 38,
-    comparePrice: 48,
-    slug: 'heavyweight-organic-boxy-tee-240-gsm',
-    maker: 'Nordic Atelier (Denmark)',
+      'Structured designer headwear crafted from weather-resistant twill and wool felt with breathable interior lining.',
+    image: '/api/drive-image/1OikG7T9QYHf_ORinbBwKcWqahB3hG6FU',
+    secondaryImage: '/api/drive-image/1J_woCWz-l9Ue9O5NwVCzRz8FFIV8id5s',
+    badge: 'Iconic Tartan & Wool Gabardine',
+    price: 0,
+    comparePrice: 0,
+    slug: 'burberry-hats-1-1',
+    maker: 'Burberry London',
     colorways: [
-      { name: 'Off-White Chalk', hex: '#F0EFEA' },
-      { name: 'Forest Pine', hex: '#1D3B2C' },
+      { name: 'Vintage Camel', hex: '#C19A6B' },
+      { name: 'Noir Black', hex: '#111111' },
     ],
   },
 ];
@@ -290,26 +285,37 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
                   setCurrentSlideIndex(idx);
                   setIsAutoPlaying(false);
                 }}
-                className={`p-4 rounded-2xl text-left transition-all border ${
+                className={`p-3.5 sm:p-4 rounded-2xl text-left transition-all border flex items-center gap-3.5 ${
                   isActive
                     ? 'bg-white border-[#0F5132] shadow-md ring-1 ring-[#0F5132]'
                     : 'bg-[#F0F0EC]/60 hover:bg-white border-transparent text-[#666660]'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-mono font-bold text-[#0F5132]">
-                    0{idx + 1} /
-                  </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#666660]">
-                    {slide.tag}
-                  </span>
+                {/* Mini Preview Thumbnail */}
+                <div className="w-12 h-12 rounded-xl overflow-hidden bg-[#E4E4E0] shrink-0 border border-[#E4E4E0]">
+                  <img
+                    src={slide.image}
+                    alt={slide.headline}
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-                <h4 className="text-xs font-bold text-[#111111] line-clamp-1">
-                  {slide.headline}
-                </h4>
-                <p className="text-[11px] text-[#666660] mt-0.5 line-clamp-1">
-                  {slide.subheadline}
-                </p>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between mb-0.5">
+                    <span className="text-[11px] font-mono font-bold text-[#0F5132]">
+                      0{idx + 1} /
+                    </span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-[#666660]">
+                      {slide.tag}
+                    </span>
+                  </div>
+                  <h4 className="text-xs font-bold text-[#111111] truncate">
+                    {slide.headline}
+                  </h4>
+                  <p className="text-[10px] text-[#666660] truncate">
+                    {slide.subheadline}
+                  </p>
+                </div>
               </button>
             );
           })}

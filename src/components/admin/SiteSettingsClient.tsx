@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { SiteSettings, CurrencyCode } from '@/lib/types';
 import { useCurrencyStore } from '@/lib/currency-store';
-import { Settings, Save, CheckCircle2, Globe, ShieldCheck, Mail, Bell, Truck, RotateCcw, Award, RefreshCw, DollarSign } from 'lucide-react';
+import { Settings, Save, CheckCircle2, Globe, ShieldCheck, Mail, Bell, Truck, RotateCcw, Award, RefreshCw, DollarSign, Search, BarChart2, Target, Code, ExternalLink, Sparkles, Key } from 'lucide-react';
 
 interface SiteSettingsClientProps {
   initialSettings: SiteSettings;
@@ -347,7 +347,7 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
                 Instant Merchant Onboarding (Auto-Approve Applications)
               </span>
               <span className="text-[11px] text-[#666660]">
-                When enabled, maker applications on /sell-with-us instantly provision an active atelier with direct /portal access without manual review.
+                When enabled, applications on /sell-with-us instantly provision an active brand profile with direct /portal access without manual review.
               </span>
             </div>
             <input
@@ -518,6 +518,201 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
             Last exchange rates sync timestamp: {new Date(lastUpdated).toLocaleString()}
           </p>
         )}
+      </div>
+
+      {/* 8. SEO, Webmaster & Marketing Tracking (Google, Meta, GA4, GTM) */}
+      <div className="bg-white p-6 rounded-2xl border border-[#E4E4E0] shadow-2xs space-y-5">
+        <div className="flex items-center justify-between pb-3 border-b border-[#E4E4E0]">
+          <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider flex items-center gap-2">
+            <Search size={16} className="text-[#0F5132]" />
+            <span>8. SEO, Webmaster & Marketing Tracking</span>
+          </h3>
+          <span className="text-[11px] font-semibold text-[#0F5132] bg-[#E8F3EE] px-2.5 py-1 rounded-full flex items-center gap-1">
+            <Sparkles size={12} />
+            Live Auto-Injection
+          </span>
+        </div>
+
+        <p className="text-xs text-[#666660] leading-relaxed">
+          Easily connect Google Search Console, Google Analytics 4, Meta (Facebook/Instagram) Pixel, and custom tags. Verification tags and tracking scripts are dynamically injected into the site headers automatically.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
+          {/* Google Search Console */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
+                <Search size={14} className="text-[#0F5132]" />
+                <span>Google Search Console Verification</span>
+              </label>
+              <a
+                href="https://search.google.com/search-console"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-[#0F5132] hover:underline flex items-center gap-1 font-medium"
+              >
+                <span>Console</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+            <input
+              type="text"
+              name="googleSiteVerification"
+              value={settings.googleSiteVerification || ''}
+              onChange={handleChange}
+              placeholder="e.g. XyZ123_abc456..."
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Enter the verification token from your Google Search Console HTML tag (<code className="bg-gray-100 px-1 py-0.5 rounded">content=&quot;...&quot;</code>).
+            </p>
+          </div>
+
+          {/* Google Analytics 4 (GA4) */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
+                <BarChart2 size={14} className="text-[#0F5132]" />
+                <span>Google Analytics 4 (Measurement ID)</span>
+              </label>
+              <a
+                href="https://analytics.google.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-[#0F5132] hover:underline flex items-center gap-1 font-medium"
+              >
+                <span>Analytics</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+            <input
+              type="text"
+              name="googleAnalyticsId"
+              value={settings.googleAnalyticsId || ''}
+              onChange={handleChange}
+              placeholder="e.g. G-ABC1234XYZ"
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Loads Google Tag (<code className="bg-gray-100 px-1 py-0.5 rounded">gtag.js</code>) on all pages for real-time traffic and e-commerce tracking.
+            </p>
+          </div>
+
+          {/* Meta (Facebook/Instagram) Pixel */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
+                <Target size={14} className="text-[#0F5132]" />
+                <span>Meta Pixel ID (Facebook / IG Ads)</span>
+              </label>
+              <a
+                href="https://business.facebook.com/events_manager"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-[#0F5132] hover:underline flex items-center gap-1 font-medium"
+              >
+                <span>Events Manager</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+            <input
+              type="text"
+              name="metaPixelId"
+              value={settings.metaPixelId || ''}
+              onChange={handleChange}
+              placeholder="e.g. 1234567890123456"
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Tracks pageviews, catalog browsing, and ad conversion performance for Instagram/Facebook ads.
+            </p>
+          </div>
+
+          {/* Google Tag Manager (GTM) */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
+                <Code size={14} className="text-[#0F5132]" />
+                <span>Google Tag Manager (GTM ID)</span>
+              </label>
+              <a
+                href="https://tagmanager.google.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-[#0F5132] hover:underline flex items-center gap-1 font-medium"
+              >
+                <span>GTM</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+            <input
+              type="text"
+              name="googleTagManagerId"
+              value={settings.googleTagManagerId || ''}
+              onChange={handleChange}
+              placeholder="e.g. GTM-XXXXXXX"
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Optional: Use GTM if managing complex third-party tags, remarketing, or triggers.
+            </p>
+          </div>
+
+          {/* Bing Webmaster Verification */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <label className="text-xs font-bold text-[#111111] block">
+              Bing Webmaster Verification Code
+            </label>
+            <input
+              type="text"
+              name="bingSiteVerification"
+              value={settings.bingSiteVerification || ''}
+              onChange={handleChange}
+              placeholder="e.g. msvalidate.01 token"
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Adds <code className="bg-gray-100 px-1 py-0.5 rounded">&lt;meta name=&quot;msvalidate.01&quot;&gt;</code> for Bing / Yahoo indexing.
+            </p>
+          </div>
+
+          {/* Pinterest Verification */}
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+            <label className="text-xs font-bold text-[#111111] block">
+              Pinterest Domain Verification Token
+            </label>
+            <input
+              type="text"
+              name="pinterestVerification"
+              value={settings.pinterestVerification || ''}
+              onChange={handleChange}
+              placeholder="e.g. p:domain_verify token"
+              className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+            />
+            <p className="text-[10px] text-[#666660]">
+              Verifies claim for Pinterest Business and Rich Pins.
+            </p>
+          </div>
+        </div>
+
+        {/* Custom Head Scripts */}
+        <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2 mt-4">
+          <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
+            <Code size={14} className="text-[#0F5132]" />
+            <span>Custom Head & Tracking Scripts (Advanced)</span>
+          </label>
+          <textarea
+            name="customHeadScripts"
+            value={settings.customHeadScripts || ''}
+            onChange={handleChange}
+            rows={3}
+            placeholder="<!-- Paste custom tracking scripts here (e.g. TikTok Pixel, Hotjar, Microsoft Clarity, etc.) -->"
+            className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
+          />
+          <p className="text-[10px] text-[#666660]">
+            Any raw HTML/JavaScript tags pasted here will be injected safely on all storefront pages.
+          </p>
+        </div>
       </div>
 
       {/* Save Button */}

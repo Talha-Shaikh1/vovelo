@@ -14,6 +14,7 @@ import {
 } from './mock-data';
 import {
   Product,
+  ProductVariant,
   Category,
   Tenant,
   BlogPost,
@@ -263,10 +264,15 @@ export async function getProducts(params: ProductQueryParams = {}): Promise<Prod
     }
     if (search) {
       const q = search.toLowerCase();
+      const tenant = runtimeTenants.find((t) => t.id === p.tenantId);
+      const category = runtimeCategories.find((c) => c.id === p.categoryId);
       const matches =
         p.title.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q) ||
-        p.tags.some((tag) => tag.toLowerCase().includes(q));
+        p.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+        (tenant?.name && tenant.name.toLowerCase().includes(q)) ||
+        (category?.name && category.name.toLowerCase().includes(q)) ||
+        (category?.slug && category.slug.toLowerCase().includes(q));
       if (!matches) return false;
     }
     return true;
@@ -301,6 +307,94 @@ export async function getProducts(params: ProductQueryParams = {}): Promise<Prod
   return filtered;
 }
 
+export interface PaginatedProductsResult {
+  products: Product[];
+  total: number;
+  totalPages: number;
+  currentPage: number;
+  pageSize: number;
+}
+
+export async function getPaginatedProducts(
+  params: ProductQueryParams & { page?: number; pageSize?: number } = {}
+): Promise<PaginatedProductsResult> {
+  const page = Math.max(1, params.page || 1);
+  const pageSize = Math.max(1, Math.min(100, params.pageSize || 24));
+
+  const allFiltered = await getProducts({ ...params, limit: undefined });
+  const total = allFiltered.length;
+  const totalPages = Math.ceil(total / pageSize) || 1;
+  const validPage = Math.min(page, totalPages);
+  const startIndex = (validPage - 1) * pageSize;
+  const products = allFiltered.slice(startIndex, startIndex + pageSize);
+
+  return {
+    products,
+    total,
+    totalPages,
+    currentPage: validPage,
+    pageSize,
+  };
+}
+
+export async function getCuratedFeaturedProducts(limit: number = 64): Promise<Product[]> {
+  const all = await getProducts();
+  const categories = await getCategories();
+
+  const curated: Product[] = [];
+  const priorityCategorySlugs = [
+    'bags',
+    'footwear',
+    'watches',
+    'coats',
+    'sunglasses',
+    'belts',
+    'jewelry',
+    'wallets',
+    'hats',
+    'scarfs',
+    't-shirts',
+    'summer-wear',
+    'belt-bags',
+    'backpacks',
+    'caps',
+  ];
+
+  // Group products by category slug
+  const productsByCat: Record<string, Product[]> = {};
+  for (const slug of priorityCategorySlugs) {
+    const cat = categories.find((c) => c.slug === slug);
+    if (cat) {
+      productsByCat[slug] = all.filter((p) => p.categoryId === cat.id);
+    }
+  }
+
+  // Round-robin selection across categories
+  let maxPerCat = Math.ceil(limit / priorityCategorySlugs.length) + 3;
+  for (let i = 0; i < maxPerCat; i++) {
+    for (const slug of priorityCategorySlugs) {
+      const catList = productsByCat[slug];
+      if (catList && catList[i]) {
+        if (!curated.some((c) => c.id === catList[i].id)) {
+          curated.push(catList[i]);
+        }
+      }
+      if (curated.length >= limit) break;
+    }
+    if (curated.length >= limit) break;
+  }
+
+  // Fill any remaining from all
+  for (const p of all) {
+    if (curated.length >= limit) break;
+    if (!curated.some((c) => c.id === p.id)) {
+      curated.push(p);
+    }
+  }
+
+  return curated.slice(0, limit);
+}
+
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
     const product = await prisma.product.findUnique({
@@ -321,7 +415,26 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     }
   } catch {}
 
-  const p = runtimeProducts.find((item) => item.slug === slug);
+  // 1. Direct match
+  let p = runtimeProducts.find((item) => item.slug === slug);
+
+  // 2. Redirect / Merged match (Search in redirectFromSlugs)
+  if (!p) {
+    p = runtimeProducts.find(
+      (item) => item.redirectFromSlugs && item.redirectFromSlugs.includes(slug)
+    );
+  }
+
+  // 3. Merged Into Child Lookup
+  if (!p) {
+    const mergedChild = runtimeProducts.find(
+      (item) => item.slug === slug && item.mergedIntoProductId
+    );
+    if (mergedChild && mergedChild.mergedIntoProductId) {
+      p = runtimeProducts.find((item) => item.id === mergedChild.mergedIntoProductId);
+    }
+  }
+
   if (!p) return null;
 
   const tenant = runtimeTenants.find((t) => t.id === p.tenantId);
@@ -901,7 +1014,7 @@ export async function submitMerchantApplication(data: {
     website: data.website || null,
     commissionRate: runtimeSettings.defaultCommissionRate || 15,
     contactPerson: data.contactPerson,
-    ecoBadges: data.ecoBadges || ['European Atelier'],
+    ecoBadges: data.ecoBadges || ['Verified Luxury'],
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -1172,4 +1285,99 @@ export async function fulfillMerchantOrderItem(
 
   return { success: true, order };
 }
+
+export async function mergeProductsIntoVariants(params: {
+  masterProductId: string;
+  mergedProductIds: string[];
+  optionName: string; // e.g. "Color", "Style", "Size"
+  variantCustomNames: Record<string, string>; // productId -> "Obsidian Black"
+  preserveRedirects?: boolean;
+}): Promise<{ success: boolean; masterProduct?: Product; error?: string }> {
+  const master = runtimeProducts.find((p) => p.id === params.masterProductId);
+  if (!master) return { success: false, error: 'Master product not found' };
+
+  if (!master.redirectFromSlugs) {
+    master.redirectFromSlugs = [];
+  }
+
+  const optionKey = params.optionName || 'Color';
+
+  // Ensure initial variant has option label
+  if (master.variants.length > 0 && !master.variants[0].optionValues?.[optionKey]) {
+    const initialLabel = params.variantCustomNames[master.id] || 'Primary';
+    master.variants[0].optionValues = {
+      ...(master.variants[0].optionValues || {}),
+      [optionKey]: initialLabel,
+    };
+    if (master.images[0]?.url && !master.variants[0].image) {
+      master.variants[0].image = master.images[0].url;
+    }
+  }
+
+  const otherProductIds = params.mergedProductIds.filter((id) => id !== params.masterProductId);
+
+  for (const prodId of otherProductIds) {
+    const prod = runtimeProducts.find((p) => p.id === prodId);
+    if (!prod) continue;
+
+    const variantLabel =
+      params.variantCustomNames[prodId] ||
+      prod.title.split('—').pop()?.trim() ||
+      prod.title;
+
+    const prodImg = prod.images[0]?.url || (prod.variants[0] as any)?.image || '';
+
+    // Create new variant
+    const newVariant: ProductVariant = {
+      id: `var-${master.id}-${prod.id}`,
+      productId: master.id,
+      sku: prod.variants[0]?.sku || `${master.slug.slice(0, 6).toUpperCase()}-${master.variants.length + 1}`,
+      price: prod.basePrice || master.basePrice,
+      compareAtPrice: prod.compareAtPrice || master.compareAtPrice,
+      stock: prod.variants.reduce((sum, v) => sum + v.stock, 0) || 10,
+      image: prodImg || master.images[0]?.url || '',
+      optionValues: {
+        [optionKey]: variantLabel,
+      },
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    master.variants.push(newVariant);
+
+    // Add image to master product gallery if not already present
+    if (prodImg && !master.images.some((img) => img.url === prodImg)) {
+      master.images.push({
+        id: `img-${master.id}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+        productId: master.id,
+        variantId: newVariant.id,
+        url: prodImg,
+        altText: `${master.title} - ${variantLabel}`,
+        order: master.images.length,
+      });
+    }
+
+    // Preserve SEO 301 Redirect mapping
+    if (params.preserveRedirects !== false) {
+      if (!master.redirectFromSlugs.includes(prod.slug)) {
+        master.redirectFromSlugs.push(prod.slug);
+      }
+      if (prod.redirectFromSlugs) {
+        prod.redirectFromSlugs.forEach((s) => {
+          if (!master.redirectFromSlugs!.includes(s)) {
+            master.redirectFromSlugs!.push(s);
+          }
+        });
+      }
+    }
+
+    // Set merged product status to ARCHIVED and mark its master parent ID
+    prod.status = 'ARCHIVED';
+    prod.mergedIntoProductId = master.id;
+  }
+
+  master.updatedAt = new Date();
+  return { success: true, masterProduct: master };
+}
+
 

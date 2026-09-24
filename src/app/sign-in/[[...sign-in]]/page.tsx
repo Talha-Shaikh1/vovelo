@@ -1,12 +1,13 @@
-﻿import { SignIn } from '@clerk/nextjs';
+import { SignIn } from '@clerk/nextjs';
 import Link from 'next/link';
+import { BrandLogo } from '@/components/storefront/BrandLogo';
 
 export default function SignInPage() {
   return (
     <div className="min-h-screen bg-[#FAFAF8] flex flex-col items-center justify-center p-4">
       <div className="mb-6 text-center">
         <Link href="/" className="inline-flex items-center gap-2">
-          <img src="/logo.png" alt="Volvelo" className="h-8 w-auto object-contain" />
+          <BrandLogo size="md" />
         </Link>
         <p className="text-xs text-[#666660] mt-2">
           Enterprise Admin & Independent Merchant Portal Access

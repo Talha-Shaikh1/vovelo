@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { ShoppingBag, Sparkles, Check, Flame, Heart } from 'lucide-react';
 import { Product } from '@/lib/types';
@@ -16,16 +16,43 @@ interface ProductCardProps {
 export function ProductCard({ product, priority = false }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(priority);
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const addItem = useCartStore((state) => state.addItem);
   const toggleWishlist = useWishlistStore((state) => state.toggleItem);
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(product.id));
+
+  // IntersectionObserver for viewport-based lazy loading
+  useEffect(() => {
+    if (priority || isInView) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '200px 0px', // Pre-load 200px before scrolling into view
+        threshold: 0.01,
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [priority, isInView]);
 
   const defaultImage =
     product.images?.[0]?.url ||
     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80';
   const hoverImage = product.images?.[1]?.url || defaultImage;
 
-  // Selected default variant
   const defaultVariant = product.variants?.[0];
   const discountPercent =
     product.compareAtPrice && product.compareAtPrice > product.basePrice
@@ -37,15 +64,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const totalStock = product.variants?.reduce((sum, v) => sum + (v.stock || 0), 0) ?? 10;
   const isLowStock = totalStock > 0 && totalStock <= 5;
   const isOutOfStock = totalStock === 0;
-
-  // Extract unique colors for swatch preview
-  const colorOptions = Array.from(
-    new Set(
-      product.variants
-        ?.map((v) => (v.optionValues as Record<string, string>)?.Color)
-        .filter(Boolean)
-    )
-  );
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -76,27 +94,38 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
+      ref={cardRef}
       className="group relative flex flex-col bg-transparent rounded-xl transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Product Image Container */}
       <div className="relative w-full aspect-[4/5] bg-[#F0F0EC] rounded-xl overflow-hidden mb-3.5 border border-[#E4E4E0]/60">
-        <Link href={`/product/${product.slug}`} className="block w-full h-full">
-          <img
-            src={isHovered && hoverImage ? hoverImage : defaultImage}
-            alt={product.images?.[0]?.altText || product.title}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading={priority ? 'eager' : 'lazy'}
-          />
-        </Link>
+        {/* Shimmer skeleton placeholder while image is loading or before entering viewport */}
+        {(!isInView || !imageLoaded) && (
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F0F0EC] via-[#E4E4E0] to-[#F0F0EC] animate-pulse" />
+        )}
+
+        {isInView && (
+          <Link href={`/product/${product.slug}`} className="block w-full h-full">
+            <img
+              src={isHovered && hoverImage ? hoverImage : defaultImage}
+              alt={product.images?.[0]?.altText || product.title}
+              onLoad={() => setImageLoaded(true)}
+              className={`w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 ease-out ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              loading={priority ? 'eager' : 'lazy'}
+            />
+          </Link>
+        )}
 
         {/* Badges Overlay */}
         <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10 pointer-events-none">
           {product.isFeatured && (
             <span className="inline-flex items-center gap-1 bg-[#0F5132] text-white text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider shadow-xs">
               <Sparkles size={10} />
-              <span>Featured</span>
+              <span>1:1 Master</span>
             </span>
           )}
           {discountPercent && (
@@ -170,9 +199,9 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
       {/* Product Information */}
       <div className="flex flex-col flex-1">
-        {/* Tenant / Maker Name */}
+        {/* Brand / Designer House */}
         {product.tenant && (
-          <span className="text-[11px] font-medium text-[#666660] uppercase tracking-wider mb-0.5">
+          <span className="text-[11px] font-bold text-[#666660] uppercase tracking-wider mb-0.5">
             {product.tenant.name}
           </span>
         )}
@@ -195,17 +224,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             />
           )}
         </div>
-
-        {/* Available Color Swatches Preview */}
-        {colorOptions.length > 0 && (
-          <div className="flex items-center gap-1.5 mt-2.5">
-            <span className="text-[11px] text-[#666660]">
-              {colorOptions.length} {colorOptions.length === 1 ? 'color' : 'colors'}
-            </span>
-          </div>
-        )}
       </div>
     </div>
   );
 }
-

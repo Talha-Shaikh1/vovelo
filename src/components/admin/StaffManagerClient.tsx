@@ -126,10 +126,10 @@ export function StaffManagerClient({ initialUsers, tenants }: StaffManagerClient
         <div className="bg-white p-5 rounded-2xl border border-[#E4E4E0] shadow-2xs space-y-1.5">
           <div className="flex items-center gap-2 text-blue-600 font-bold text-xs">
             <Store size={15} />
-            <span>MERCHANT / MAKER</span>
+            <span>MERCHANT / BRAND</span>
           </div>
           <p className="text-xs text-[#666660] leading-relaxed">
-            Restricted to their specific European atelier. Access to /portal to manage products, stock, and DHL fulfillment.
+            Restricted to their specific brand. Access to /portal to manage products, stock, and DHL fulfillment.
           </p>
         </div>
       </div>
@@ -142,7 +142,7 @@ export function StaffManagerClient({ initialUsers, tenants }: StaffManagerClient
               <tr>
                 <th className="py-3.5 px-5">User</th>
                 <th className="py-3.5 px-5">Role</th>
-                <th className="py-3.5 px-5">Assigned Maker Atelier</th>
+                <th className="py-3.5 px-5">Assigned Brand</th>
                 <th className="py-3.5 px-5">Created</th>
                 <th className="py-3.5 px-5 text-right">Update Role</th>
               </tr>
@@ -218,7 +218,7 @@ export function StaffManagerClient({ initialUsers, tenants }: StaffManagerClient
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-neutral-200 p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
-              <h3 className="text-base font-bold text-[#111111]">Invite Staff or Maker</h3>
+              <h3 className="text-base font-bold text-[#111111]">Invite Staff or Merchant</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
@@ -268,21 +268,21 @@ export function StaffManagerClient({ initialUsers, tenants }: StaffManagerClient
                 >
                   <option value="ADMIN">ADMIN (Full Catalog & Orders)</option>
                   <option value="SUPPORT">SUPPORT (Orders & Disputes)</option>
-                  <option value="MERCHANT">MERCHANT (Scoped Atelier Portal)</option>
+                  <option value="MERCHANT">MERCHANT (Scoped Brand Portal)</option>
                 </select>
               </div>
 
               {role === 'MERCHANT' && (
                 <div>
                   <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Assign to European Atelier
+                    Assign to Brand
                   </label>
                   <select
                     value={tenantId}
                     onChange={(e) => setTenantId(e.target.value)}
                     className="w-full text-xs px-3.5 py-2.5 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-[#0F5132] focus:outline-none"
                   >
-                    <option value="">Select Atelier...</option>
+                    <option value="">Select Brand...</option>
                     {tenants.map((t) => (
                       <option key={t.id} value={t.id}>
                         {t.name} ({t.country})

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { UserButton } from '@clerk/nextjs';
 import { UserAccount } from '@/lib/types';
+import { BrandLogo } from '@/components/storefront/BrandLogo';
 import {
   LayoutDashboard,
   Store,
@@ -52,7 +53,7 @@ export function AdminSidebar({ userAccount }: AdminSidebarProps) {
       {/* Mobile Header */}
       <div className="md:hidden bg-white border-b border-[#E4E4E0] p-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Volvelo Admin" className="h-6 w-auto object-contain" />
+          <BrandLogo size="sm" />
           <span className="text-[10px] bg-[#E8F3EE] text-[#0F5132] px-2 py-0.5 rounded font-bold uppercase">
             {userAccount.role}
           </span>
@@ -75,10 +76,10 @@ export function AdminSidebar({ userAccount }: AdminSidebarProps) {
         {/* Sidebar Brand Header */}
         <div className="p-6 border-b border-[#E4E4E0] flex items-center justify-between">
           <a href="/admin" className="flex flex-col gap-1">
-            <img src="/logo.png" alt="Volvelo Admin" className="h-7 w-auto object-contain" />
-            <div className="flex items-center gap-1.5 mt-1">
+            <BrandLogo size="sm" />
+            <div className="flex items-center gap-1.5 mt-2">
               <span className="text-[10px] text-[#0F5132] font-bold tracking-wider uppercase pl-0.5">
-                Enterprise Hub
+                Admin Control
               </span>
               <span className="text-[9px] bg-[#E8F3EE] text-[#0F5132] font-extrabold px-1.5 py-0.2 rounded">
                 {userAccount.role}

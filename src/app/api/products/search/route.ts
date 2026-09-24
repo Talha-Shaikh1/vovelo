@@ -11,7 +11,7 @@ export async function GET(request: Request) {
 
   const products = await getProducts({
     search: query.trim(),
-    limit: 6,
+    limit: 10,
   });
 
   const results = products.map((p) => ({
@@ -20,8 +20,8 @@ export async function GET(request: Request) {
     slug: p.slug,
     basePrice: p.basePrice,
     image: p.images[0]?.url || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80',
-    categoryName: p.category?.name || 'Essentials',
-    categorySlug: p.category?.slug || 'apparel',
+    categoryName: p.category?.name || 'Luxury Collection',
+    categorySlug: p.category?.slug || 'shop',
   }));
 
   return NextResponse.json({ results });

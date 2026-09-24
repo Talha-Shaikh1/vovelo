@@ -84,7 +84,7 @@ export default function CartPage() {
               <p className="text-sm text-[#666660] mt-1">
                 {items.length === 0
                   ? 'Your bag is empty.'
-                  : `You have ${items.reduce((sum, i) => sum + i.quantity, 0)} items from European independent ateliers.`}
+                  : `You have ${items.reduce((sum, i) => sum + i.quantity, 0)} items in your shopping bag.`}
               </p>
             </div>
 
@@ -232,7 +232,7 @@ export default function CartPage() {
                     href="/shop"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F5132] hover:underline"
                   >
-                    <span>← Continue Browsing Ateliers</span>
+                    <span>← Continue Shopping</span>
                   </Link>
                 </div>
               </div>

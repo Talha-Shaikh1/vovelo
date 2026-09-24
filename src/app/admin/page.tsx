@@ -170,28 +170,58 @@ export default async function AdminDashboardPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-[#F0F0EC] text-[#111111] font-semibold">
                 <tr>
-                  <th className="p-3 rounded-l-lg">Product</th>
-                  <th className="p-3">Maker / Tenant</th>
+                  <th className="p-3 rounded-l-lg w-10">Rank</th>
+                  <th className="p-3">Product</th>
+                  <th className="p-3">Brand / House</th>
                   <th className="p-3">Base Price</th>
                   <th className="p-3">Views</th>
                   <th className="p-3 rounded-r-lg text-right">SEO Score</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E4E4E0]">
-                {products
+                {[...products]
                   .sort((a, b) => b.seoScore - a.seoScore)
-                  .map((prod) => (
-                    <tr key={prod.id} className="hover:bg-[#FAFAF8]">
-                      <td className="p-3 font-semibold text-[#111111] max-w-xs truncate">
-                        {prod.title}
-                        {prod.isFeatured && (
-                          <span className="ml-2 inline-block px-1.5 py-0.5 bg-[#E8F3EE] text-[#0F5132] text-[10px] font-bold rounded">
-                            Featured
-                          </span>
-                        )}
+                  .slice(0, 8)
+                  .map((prod, idx) => (
+                    <tr key={prod.id} className="hover:bg-[#FAFAF8] transition-colors">
+                      <td className="p-3 font-mono font-bold text-[#666660]">
+                        <span
+                          className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
+                            idx === 0
+                              ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                              : idx === 1
+                              ? 'bg-slate-200 text-slate-800'
+                              : idx === 2
+                              ? 'bg-orange-100 text-orange-900'
+                              : 'text-[#666660]'
+                          }`}
+                        >
+                          #{idx + 1}
+                        </span>
                       </td>
-                      <td className="p-3 text-[#666660]">{prod.tenant?.name}</td>
-                      <td className="p-3 font-mono">{formatPrice(prod.basePrice)}</td>
+                      <td className="p-3 font-semibold text-[#111111] max-w-xs">
+                        <div className="flex items-center gap-2.5">
+                          {prod.images?.[0]?.url ? (
+                            <img
+                              src={prod.images[0].url}
+                              alt={prod.title}
+                              className="w-8 h-8 rounded-lg object-cover border border-[#E4E4E0] shrink-0"
+                            />
+                          ) : (
+                            <div className="w-8 h-8 rounded-lg bg-gray-100 border border-[#E4E4E0] shrink-0" />
+                          )}
+                          <div className="truncate">
+                            <span className="truncate block">{prod.title}</span>
+                            {prod.isFeatured && (
+                              <span className="inline-block px-1.5 py-0.2 bg-[#E8F3EE] text-[#0F5132] text-[9px] font-bold rounded mt-0.5">
+                                Featured
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-3 text-[#666660] font-medium">{prod.tenant?.name || 'Volvelo'}</td>
+                      <td className="p-3 font-mono font-semibold">{formatPrice(prod.basePrice)}</td>
                       <td className="p-3 font-mono text-[#666660]">{prod.viewsCount || 0}</td>
                       <td className="p-3 text-right">
                         <span className="inline-flex items-center gap-1 font-bold font-mono text-xs px-2.5 py-0.5 rounded-full bg-[#E8F3EE] text-[#0F5132]">
@@ -202,6 +232,17 @@ export default async function AdminDashboardPage() {
                   ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="pt-2 border-t border-[#E4E4E0] flex items-center justify-between text-xs text-[#666660]">
+            <span>Showing top 8 highest-ranked of {products.length} catalog items</span>
+            <a
+              href="/admin/products"
+              className="font-semibold text-[#0F5132] hover:underline flex items-center gap-1"
+            >
+              <span>View full catalog & ranking filters</span>
+              <ArrowUpRight size={14} />
+            </a>
           </div>
         </div>
 

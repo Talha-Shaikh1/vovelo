@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { CartItem, PromoCode } from './types';
+import { toast } from './toast-store';
 
 interface CartState {
   items: CartItem[];
@@ -66,12 +67,18 @@ export const useCartStore = create<CartState>()(
             isOpen: true,
           });
         }
+
+        toast.cart(newItem.title, 'added', newItem.image);
       },
 
       removeItem: (variantId: string) => {
+        const itemToRemove = get().items.find((i) => i.variantId === variantId);
         set({
           items: get().items.filter((item) => item.variantId !== variantId),
         });
+        if (itemToRemove) {
+          toast.cart(itemToRemove.title, 'removed', itemToRemove.image);
+        }
       },
 
       updateQuantity: (variantId: string, quantity: number) => {

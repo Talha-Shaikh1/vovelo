@@ -105,7 +105,7 @@ export default function SellWithUsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-[#111111]">
-      <Header announcement="Calling Ethical European Ateliers & Independent Makers" />
+      <Header announcement="Calling Luxury Merchants & Independent Designers" />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -120,7 +120,7 @@ export default function SellWithUsPage() {
           </h1>
 
           <p className="text-sm sm:text-base text-[#666660] max-w-2xl mx-auto mt-4 leading-relaxed">
-            Volvelo unites premier European independent makers under one shared domain so search ranking and customer trust accumulate exponentially. You craft and fulfill, while we handle conversion.
+            Volvelo unites premier independent brands under one shared domain so search ranking and customer trust accumulate exponentially. You fulfill, while we handle conversion.
           </p>
 
           {/* Pillars Row */}
@@ -141,7 +141,7 @@ export default function SellWithUsPage() {
               </div>
               <h3 className="text-sm font-bold text-[#111111]">100% Guest Checkout</h3>
               <p className="text-xs text-[#666660] leading-relaxed">
-                Zero forced account walls for buyers. Rapid conversion from customers across 27 EU nations.
+                Zero forced account walls for buyers. Rapid conversion from customers worldwide.
               </p>
             </div>
 
@@ -149,9 +149,9 @@ export default function SellWithUsPage() {
               <div className="w-9 h-9 rounded-xl bg-[#E8F3EE] text-[#0F5132] flex items-center justify-center font-bold">
                 <Globe size={18} />
               </div>
-              <h3 className="text-sm font-bold text-[#111111]">Dedicated Brand Atelier</h3>
+              <h3 className="text-sm font-bold text-[#111111]">Dedicated Brand Page</h3>
               <p className="text-xs text-[#666660] leading-relaxed">
-                Your own verified European maker profile page showcasing your craftsmanship and catalog.
+                Your own verified brand profile page showcasing your craftsmanship and catalog.
               </p>
             </div>
           </div>
@@ -167,12 +167,12 @@ export default function SellWithUsPage() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-[#111111]">
-                    {autoApproved ? 'Welcome to Volvelo Atelier Hub!' : 'Application Submitted for Review'}
+                    {autoApproved ? 'Welcome to Volvelo Brand Portal!' : 'Application Submitted for Review'}
                   </h2>
                   <p className="text-xs text-[#666660] max-w-md mx-auto mt-2 leading-relaxed">
                     {autoApproved
-                      ? 'Your brand has been instantly provisioned. You can now access your Maker Portal to list products and fulfill orders.'
-                      : 'Our curation team reviews European maker applications within 24 hours to ensure ethical production standards.'}
+                      ? 'Your brand has been instantly provisioned. You can now access your Merchant Portal to list products and fulfill orders.'
+                      : 'Our curation team reviews maker applications within 24 hours to ensure verified production standards.'}
                   </p>
                 </div>
 
@@ -216,12 +216,12 @@ export default function SellWithUsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
-                      Brand / Atelier Name *
+                      Brand / Merchant Name *
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Nordic Atelier"
+                      placeholder="e.g. Nordic Heritage"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-[#FAFAF8] border border-[#E4E4E0] rounded-xl text-xs focus:ring-2 focus:ring-[#0F5132] focus:outline-none"
@@ -249,7 +249,7 @@ export default function SellWithUsPage() {
                     <input
                       type="email"
                       required
-                      placeholder="maker@atelier.eu"
+                      placeholder="merchant@brand.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-[#FAFAF8] border border-[#E4E4E0] rounded-xl text-xs focus:ring-2 focus:ring-[#0F5132] focus:outline-none"
@@ -262,7 +262,7 @@ export default function SellWithUsPage() {
                     </label>
                     <input
                       type="url"
-                      placeholder="https://nordicatelier.dk"
+                      placeholder="https://nordicbrand.com"
                       value={website}
                       onChange={(e) => setWebsite(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-[#FAFAF8] border border-[#E4E4E0] rounded-xl text-xs focus:ring-2 focus:ring-[#0F5132] focus:outline-none"
@@ -300,7 +300,7 @@ export default function SellWithUsPage() {
 
                 <div>
                   <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
-                    Atelier Craft Story & Materials *
+                    Brand Craft Story & Materials *
                   </label>
                   <textarea
                     required

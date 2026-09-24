@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: BrandPageProps): Promise<Meta
     return { title: 'Maker Not Found | Volvelo' };
   }
 
-  const title = `${tenant.name} — European Artisan Atelier | Volvelo`;
+  const title = `${tenant.name} — Luxury Brand House | Volvelo`;
   const description =
     tenant.story || `Discover sustainably crafted minimalist products by ${tenant.name} on Volvelo.`;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
@@ -91,13 +91,13 @@ export default async function BrandPage({ params }: BrandPageProps) {
           </Link>
         </div>
 
-        {/* Maker Atelier Bio Banner */}
+        {/* Maker Bio Banner */}
         <div className="bg-white rounded-3xl p-8 sm:p-12 border border-[#E4E4E0] shadow-2xs mb-12">
           <div className="max-w-3xl space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1 bg-[#E8F3EE] text-[#0F5132] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                 <Store size={12} />
-                <span>Certified European Atelier</span>
+                <span>Verified Luxury Brand</span>
               </span>
 
               {tenant.city && tenant.country && (
@@ -116,7 +116,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
 
             <p className="text-sm text-[#555550] leading-relaxed">
               {tenant.story ||
-                'Independent European maker committed to ethical manufacturing, certified organic materials, and carbon-neutral direct fulfillment.'}
+                'Curated luxury fashion house committed to 1:1 master craftsmanship, certified premium materials, and direct VIP fulfillment.'}
             </p>
 
             {/* Eco Badges */}
@@ -144,14 +144,14 @@ export default async function BrandPage({ params }: BrandPageProps) {
                 Curated Lineup by {tenant.name}
               </h2>
               <p className="text-xs text-[#666660] mt-0.5">
-                Showing {products.length} products direct from the atelier
+                Showing {products.length} verified master pieces
               </p>
             </div>
           </div>
 
           {products.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-2xl border border-dashed border-[#E4E4E0] text-xs text-[#666660]">
-              This atelier is currently preparing its next seasonal capsule release.
+              This brand is currently preparing its next seasonal capsule release.
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

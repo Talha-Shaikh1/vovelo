@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { UserButton, SignInButton, useUser } from '@clerk/nextjs';
 import { Tenant, Product, Order, Category } from '@/lib/types';
 import { PriceDisplay } from '@/components/storefront/PriceDisplay';
+import { BrandLogo } from '@/components/storefront/BrandLogo';
 import {
   Store,
   Package,
@@ -168,7 +169,7 @@ export function MerchantPortalClient({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/logo.png" alt="Volvelo" className="h-6 w-auto object-contain" />
+              <BrandLogo size="sm" />
             </Link>
 
             <span className="text-neutral-300">/</span>
@@ -207,7 +208,7 @@ export function MerchantPortalClient({
               target="_blank"
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#FAFAF8] hover:bg-[#F0F0EC] border border-[#E4E4E0] text-[#111111] transition-colors"
             >
-              <span>View Atelier</span>
+              <span>View Brand</span>
               <ExternalLink size={12} />
             </Link>
 
@@ -290,7 +291,7 @@ export function MerchantPortalClient({
 
           <div className="bg-white p-5 rounded-2xl border border-[#E4E4E0] shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#666660]">Net Atelier Payout (85%)</span>
+              <span className="text-xs font-semibold text-[#666660]">Net Brand Payout (85%)</span>
               <TrendingUp size={16} className="text-emerald-600" />
             </div>
             <p className="text-2xl font-black text-[#0F5132] mt-2 font-mono">
@@ -349,7 +350,7 @@ export function MerchantPortalClient({
             }`}
           >
             <Package size={15} />
-            <span>My Atelier Catalog ({portalData.products.length})</span>
+            <span>My Brand Catalog ({portalData.products.length})</span>
           </button>
         </div>
 
@@ -370,7 +371,7 @@ export function MerchantPortalClient({
                     <th className="py-3.5 px-5">Order Ref</th>
                     <th className="py-3.5 px-5">Item & Variant</th>
                     <th className="py-3.5 px-5">Customer & Destination</th>
-                    <th className="py-3.5 px-5">Atelier Net</th>
+                    <th className="py-3.5 px-5">Brand Net</th>
                     <th className="py-3.5 px-5">Status</th>
                     <th className="py-3.5 px-5 text-right">Action</th>
                   </tr>
