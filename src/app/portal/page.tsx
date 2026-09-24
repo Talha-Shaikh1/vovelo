@@ -89,23 +89,15 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
           </div>
 
           <div className="p-3 bg-[#F0F0EC] rounded-xl text-[11px] text-[#666660] text-left space-y-1">
-            <p className="font-semibold text-[#111111]">Next Steps:</p>
-            <p>1. If you just applied on /sell-with-us, your application is pending review by platform administrators.</p>
-            <p>2. Once approved, your products, orders, and 85% payouts dashboard will activate automatically here.</p>
+            <p className="font-semibold text-[#111111]">Verified Access Only:</p>
+            <p>1. Merchant accounts are managed directly by platform administration.</p>
+            <p>2. Once your brand profile is invited, your products, orders, and payouts dashboard will activate here automatically.</p>
           </div>
 
           <div className="pt-2 space-y-2">
             <Link
-              href="/sell-with-us"
-              className="w-full py-3 px-4 bg-[#0F5132] hover:bg-[#0A3622] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
-            >
-              <Store size={15} />
-              <span>Submit European Maker Application</span>
-            </Link>
-
-            <Link
               href="/"
-              className="w-full py-2.5 px-4 bg-[#FAFAF8] hover:bg-[#F0F0EC] text-[#111111] text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition-colors border border-[#E4E4E0]"
+              className="w-full py-3 px-4 bg-[#0F5132] hover:bg-[#0A3622] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
             >
               <span>Return to Storefront</span>
               <ArrowRight size={13} />

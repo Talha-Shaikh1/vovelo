@@ -180,8 +180,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/sell-with-us" className="hover:text-emerald-400 transition-colors">
-                  Sell With Us
+                <Link href="/categories" className="hover:text-emerald-400 transition-colors">
+                  All Collections
                 </Link>
               </li>
             </ul>

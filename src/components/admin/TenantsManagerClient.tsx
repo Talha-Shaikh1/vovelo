@@ -170,15 +170,6 @@ export function TenantsManagerClient({ initialTenants }: TenantsManagerClientPro
             <span>Open Merchant Portal</span>
             <ExternalLink size={14} />
           </Link>
-
-          <Link
-            href="/sell-with-us"
-            target="_blank"
-            className="px-4 py-2.5 bg-[#0F5132] text-white hover:bg-[#0A3622] text-xs font-bold rounded-xl transition-colors shadow-xs flex items-center gap-1.5"
-          >
-            <Plus size={15} />
-            <span>Maker Application Form</span>
-          </Link>
         </div>
       </div>
 
