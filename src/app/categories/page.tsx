@@ -33,13 +33,16 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url,
+      siteName: 'Volvelo',
       type: 'website',
       images: [
         {
-          url: '/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_',
+          url: `${baseUrl}/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_`,
+          secureUrl: `${baseUrl}/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_`,
           width: 1200,
           height: 630,
           alt: 'Volvelo 1:1 Master Luxury Collections',
+          type: 'image/jpeg',
         },
       ],
     },
@@ -47,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_'],
+      images: [`${baseUrl}/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_`],
     },
   };
 }

@@ -31,6 +31,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
   const url = `${baseUrl}/product/${product.slug}`;
 
+  const rawImg = product.images?.[0]?.url;
+  const absoluteImgUrl = rawImg
+    ? rawImg.startsWith('http')
+      ? rawImg
+      : `${baseUrl}${rawImg.startsWith('/') ? '' : '/'}${rawImg}`
+    : `${baseUrl}/opengraph-image`;
+
   return {
     title,
     description,
@@ -41,23 +48,24 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title,
       description,
       url,
+      siteName: 'Volvelo',
       type: 'website',
-      images: product.images?.[0]?.url
-        ? [
-            {
-              url: product.images[0].url,
-              width: 1200,
-              height: 1500,
-              alt: product.images[0].altText || product.title,
-            },
-          ]
-        : [],
+      images: [
+        {
+          url: absoluteImgUrl,
+          secureUrl: absoluteImgUrl,
+          width: 1200,
+          height: 630,
+          alt: product.images?.[0]?.altText || product.title,
+          type: 'image/jpeg',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: product.images?.[0]?.url ? [product.images[0].url] : [],
+      images: [absoluteImgUrl],
     },
   };
 }

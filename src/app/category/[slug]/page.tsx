@@ -42,6 +42,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     category.description ||
     `Shop 1:1 master quality ${category.name} with express delivery and 7-day guarantee.`;
 
+  const rawCatImg = category.image;
+  const absoluteCatImgUrl = rawCatImg
+    ? rawCatImg.startsWith('http')
+      ? rawCatImg
+      : `${baseUrl}${rawCatImg.startsWith('/') ? '' : '/'}${rawCatImg}`
+    : `${baseUrl}/opengraph-image`;
+
   return {
     title,
     description,
@@ -52,14 +59,24 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       title,
       description,
       url,
+      siteName: 'Volvelo',
       type: 'website',
-      images: category.image ? [{ url: category.image, alt: category.name }] : [],
+      images: [
+        {
+          url: absoluteCatImgUrl,
+          secureUrl: absoluteCatImgUrl,
+          width: 1200,
+          height: 630,
+          alt: category.name,
+          type: 'image/jpeg',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: category.image ? [category.image] : [],
+      images: [absoluteCatImgUrl],
     },
   };
 }
