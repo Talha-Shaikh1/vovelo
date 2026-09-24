@@ -102,7 +102,7 @@ export const metadata: Metadata = {
 
 import { getSiteSettings } from '@/lib/data-service';
 import { AnalyticsScripts } from '@/components/storefront/AnalyticsScripts';
-import { getBaseUrl } from '@/lib/utils';
+import { getBaseUrl, extractVerificationCode } from '@/lib/utils';
 
 export default async function RootLayout({
   children,
@@ -111,6 +111,10 @@ export default async function RootLayout({
 }) {
   const baseUrl = getBaseUrl();
   const settings = await getSiteSettings();
+
+  const googleVerify = extractVerificationCode(settings.googleSiteVerification);
+  const bingVerify = extractVerificationCode(settings.bingSiteVerification);
+  const pinterestVerify = extractVerificationCode(settings.pinterestVerification);
 
   const globalJsonLd = {
     '@context': 'https://schema.org',
@@ -152,14 +156,14 @@ export default async function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased overflow-x-hidden`}>
       <head>
         {/* Verification Meta Tags */}
-        {settings.googleSiteVerification && (
-          <meta name="google-site-verification" content={settings.googleSiteVerification} />
+        {googleVerify && (
+          <meta name="google-site-verification" content={googleVerify} />
         )}
-        {settings.bingSiteVerification && (
-          <meta name="msvalidate.01" content={settings.bingSiteVerification} />
+        {bingVerify && (
+          <meta name="msvalidate.01" content={bingVerify} />
         )}
-        {settings.pinterestVerification && (
-          <meta name="p:domain_verify" content={settings.pinterestVerification} />
+        {pinterestVerify && (
+          <meta name="p:domain_verify" content={pinterestVerify} />
         )}
         <script
           type="application/ld+json"

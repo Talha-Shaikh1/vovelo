@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { SiteSettings, CurrencyCode } from '@/lib/types';
 import { useCurrencyStore } from '@/lib/currency-store';
-import { Settings, Save, CheckCircle2, Globe, ShieldCheck, Mail, Bell, Truck, RotateCcw, Award, RefreshCw, DollarSign, Search, BarChart2, Target, Code, ExternalLink, Sparkles, Key } from 'lucide-react';
+import { extractVerificationCode } from '@/lib/utils';
+import { Settings, Save, CheckCircle2, Globe, ShieldCheck, Mail, Bell, Truck, RotateCcw, Award, RefreshCw, DollarSign, Search, BarChart2, Target, Code, ExternalLink, Sparkles, Key, FileCheck } from 'lucide-react';
 
 interface SiteSettingsClientProps {
   initialSettings: SiteSettings;
@@ -47,14 +48,19 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    let cleanValue: any = value;
+
+    if (name === 'lowStockThreshold') {
+      cleanValue = parseInt(value) || 0;
+    } else if (name === 'freeShippingThreshold' || name === 'standardShippingFee') {
+      cleanValue = parseFloat(value) || 0;
+    } else if (name === 'googleSiteVerification' || name === 'bingSiteVerification' || name === 'pinterestVerification') {
+      cleanValue = extractVerificationCode(value);
+    }
+
     setSettings((prev) => ({
       ...prev,
-      [name]:
-        name === 'lowStockThreshold'
-          ? parseInt(value) || 0
-          : name === 'freeShippingThreshold' || name === 'standardShippingFee'
-          ? parseFloat(value) || 0
-          : value,
+      [name]: cleanValue,
     }));
   };
 
@@ -539,11 +545,11 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
           {/* Google Search Console */}
-          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2">
+          <div className="p-4 bg-[#FAFAF8] rounded-xl border border-[#E4E4E0] space-y-2.5">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-[#111111] flex items-center gap-1.5">
                 <Search size={14} className="text-[#0F5132]" />
-                <span>Google Search Console Verification</span>
+                <span>Google Search Console HTML Tag / Code</span>
               </label>
               <a
                 href="https://search.google.com/search-console"
@@ -551,7 +557,7 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
                 rel="noreferrer"
                 className="text-[11px] text-[#0F5132] hover:underline flex items-center gap-1 font-medium"
               >
-                <span>Console</span>
+                <span>Open Console</span>
                 <ExternalLink size={10} />
               </a>
             </div>
@@ -560,12 +566,15 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
               name="googleSiteVerification"
               value={settings.googleSiteVerification || ''}
               onChange={handleChange}
-              placeholder="e.g. XyZ123_abc456..."
+              placeholder='Paste full <meta name="..." content="..." /> or code'
               className="w-full text-xs font-mono bg-white border border-[#E4E4E0] rounded-lg px-3 py-2 text-[#111111] focus:outline-none focus:border-[#0F5132]"
             />
-            <p className="text-[10px] text-[#666660]">
-              Enter the verification token from your Google Search Console HTML tag (<code className="bg-gray-100 px-1 py-0.5 rounded">content=&quot;...&quot;</code>).
-            </p>
+            <div className="flex items-start gap-1.5 text-[10px] text-[#666660] leading-relaxed">
+              <FileCheck size={13} className="text-[#0F5132] shrink-0 mt-0.5" />
+              <span>
+                <strong>Tip:</strong> You can paste the entire HTML tag from Google or just the content code. If Google gave you an HTML file (e.g. <code>google123.html</code>), the server automatically verifies it!
+              </span>
+            </div>
           </div>
 
           {/* Google Analytics 4 (GA4) */}

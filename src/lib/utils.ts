@@ -53,3 +53,17 @@ export function getBaseUrl(): string {
   return 'https://vovelo.vercel.app';
 }
 
+export function extractVerificationCode(input?: string | null): string {
+  if (!input) return '';
+  const trimmed = input.trim();
+  const match = trimmed.match(/content=["']([^"']+)["']/i);
+  if (match && match[1]) {
+    return match[1].trim();
+  }
+  return trimmed
+    .replace(/^<meta[^>]*>/i, '')
+    .replace(/[\/>]$/i, '')
+    .trim();
+}
+
+
