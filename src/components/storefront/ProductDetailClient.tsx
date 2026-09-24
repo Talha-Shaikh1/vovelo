@@ -87,7 +87,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
         )
       : null;
 
-  const isLowStock = selectedVariant.stock > 0 && selectedVariant.stock <= 5;
+  const isLowStock = selectedVariant.stock > 0 && selectedVariant.stock <= 3;
   const isOutOfStock = selectedVariant.stock === 0;
 
   // Dynamic Badges with Merchant Product-Level Overrides

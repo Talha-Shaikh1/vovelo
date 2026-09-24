@@ -61,8 +61,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         )
       : null;
 
-  const totalStock = product.variants?.reduce((sum, v) => sum + (v.stock || 0), 0) ?? 10;
-  const isLowStock = totalStock > 0 && totalStock <= 5;
+  const totalStock = product.variants?.reduce((sum, v) => sum + (v.stock || 0), 0) ?? 25;
+  const isLowStock = totalStock > 0 && totalStock <= 3;
   const isOutOfStock = totalStock === 0;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
