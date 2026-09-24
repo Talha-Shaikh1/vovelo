@@ -216,7 +216,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
         {/* Filter & Product Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <aside className="lg:col-span-3 bg-white p-5 rounded-2xl border border-[#E4E4E0] shadow-2xs sticky top-24">
+          <aside className="lg:col-span-3 bg-transparent p-0 lg:bg-white lg:p-5 lg:rounded-2xl lg:border lg:border-[#E4E4E0] lg:shadow-2xs lg:sticky lg:top-24">
             <CategoryFilters
               categories={categories}
               tenants={tenants.filter((t) => t.status === 'ACTIVE')}

@@ -191,79 +191,81 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
           </div>
 
           {/* Quantity & Add to Bag */}
-          <div className="flex items-center gap-4 pt-4 border-t border-[#E4E4E0]">
-            {/* Quantity selector */}
-            <div className="flex items-center border border-[#E4E4E0] rounded-xl bg-white px-3 py-2.5">
+          <div className="pt-4 border-t border-[#E4E4E0] space-y-3">
+            <div className="flex items-center gap-3">
+              {/* Quantity selector */}
+              <div className="flex items-center border border-[#E4E4E0] rounded-xl bg-white px-3 py-2.5 shrink-0 shadow-2xs">
+                <button
+                  type="button"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="text-[#666660] hover:text-[#111111] px-1.5 font-bold"
+                  disabled={quantity <= 1 || isOutOfStock}
+                >
+                  -
+                </button>
+                <span className="px-3 text-xs font-bold font-mono">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setQuantity(Math.min(selectedVariant.stock, quantity + 1))
+                  }
+                  className="text-[#666660] hover:text-[#111111] px-1.5 font-bold"
+                  disabled={quantity >= selectedVariant.stock || isOutOfStock}
+                >
+                  +
+                </button>
+              </div>
+
+              {/* Add to Cart CTA */}
               <button
                 type="button"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="text-[#666660] hover:text-[#111111] px-1 font-bold"
-                disabled={quantity <= 1 || isOutOfStock}
+                onClick={handleAddToCart}
+                disabled={isOutOfStock}
+                className={`flex-1 py-3.5 px-4 sm:px-6 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all ${
+                  isOutOfStock
+                    ? 'bg-[#E4E4E0] text-[#999990] cursor-not-allowed'
+                    : addedAnimation
+                    ? 'bg-[#0F5132] text-white'
+                    : 'bg-[#0F5132] hover:bg-[#0A3622] text-white hover:shadow-lg'
+                }`}
               >
-                -
+                {addedAnimation ? (
+                  <>
+                    <Check size={18} className="text-white animate-in zoom-in-50" />
+                    <span>Added to Bag!</span>
+                  </>
+                ) : isOutOfStock ? (
+                  <span>Out of Stock</span>
+                ) : (
+                  <>
+                    <ShoppingBag size={18} />
+                    <span>
+                      Add to Bag • <PriceDisplay amount={selectedVariant.price * quantity} />
+                    </span>
+                  </>
+                )}
               </button>
-              <span className="px-4 text-xs font-bold font-mono">{quantity}</span>
+
+              {/* Wishlist Heart Button */}
               <button
                 type="button"
-                onClick={() =>
-                  setQuantity(Math.min(selectedVariant.stock, quantity + 1))
-                }
-                className="text-[#666660] hover:text-[#111111] px-1 font-bold"
-                disabled={quantity >= selectedVariant.stock || isOutOfStock}
+                onClick={() => toggleWishlist(product)}
+                className={`p-3.5 rounded-xl border transition-all flex items-center justify-center shrink-0 shadow-2xs ${
+                  isInWishlist
+                    ? 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100'
+                    : 'border-[#E4E4E0] bg-white text-[#666660] hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50/50'
+                }`}
+                title={isInWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}
+                aria-label={isInWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}
               >
-                +
+                <Heart
+                  size={19}
+                  className={`transition-transform duration-200 ${
+                    isInWishlist ? 'fill-rose-500 scale-110 text-rose-500' : ''
+                  }`}
+                />
               </button>
             </div>
-
-            {/* Add to Cart CTA */}
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              disabled={isOutOfStock}
-              className={`flex-1 py-3.5 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2.5 shadow-md transition-all ${
-                isOutOfStock
-                  ? 'bg-[#E4E4E0] text-[#999990] cursor-not-allowed'
-                  : addedAnimation
-                  ? 'bg-[#0F5132] text-white'
-                  : 'bg-[#0F5132] hover:bg-[#0A3622] text-white hover:shadow-lg'
-              }`}
-            >
-              {addedAnimation ? (
-                <>
-                  <Check size={18} className="text-white animate-in zoom-in-50" />
-                  <span>Added to Bag!</span>
-                </>
-              ) : isOutOfStock ? (
-                <span>Out of Stock</span>
-              ) : (
-                <>
-                  <ShoppingBag size={18} />
-                  <span>
-                    Add to Bag • <PriceDisplay amount={selectedVariant.price * quantity} />
-                  </span>
-                </>
-              )}
-            </button>
-
-            {/* Wishlist Heart Button */}
-            <button
-              type="button"
-              onClick={() => toggleWishlist(product)}
-              className={`p-3.5 rounded-xl border transition-all flex items-center justify-center shadow-xs ${
-                isInWishlist
-                  ? 'bg-rose-50 border-rose-200 text-rose-600 hover:bg-rose-100'
-                  : 'border-[#E4E4E0] bg-white text-[#666660] hover:text-rose-600 hover:border-rose-300 hover:bg-rose-50/50'
-              }`}
-              title={isInWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}
-              aria-label={isInWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}
-            >
-              <Heart
-                size={20}
-                className={`transition-transform duration-200 ${
-                  isInWishlist ? 'fill-rose-500 scale-110 text-rose-500' : ''
-                }`}
-              />
-            </button>
           </div>
 
           {/* Dynamic Store & Merchant Value Prop Badges */}
