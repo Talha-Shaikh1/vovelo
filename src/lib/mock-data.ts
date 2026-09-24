@@ -36,7 +36,7 @@ export const mockSiteSettings: SiteSettings = {
   carbonNeutralBadge: '100% Climate Neutral Delivery',
   autoApproveMerchants: false,
   defaultCommissionRate: 15,
-  googleSiteVerification: '',
+  googleSiteVerification: 'googlefa4f432a4a32b483',
   googleAnalyticsId: '',
   googleTagManagerId: '',
   metaPixelId: '',
