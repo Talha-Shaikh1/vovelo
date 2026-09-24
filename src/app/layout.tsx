@@ -98,6 +98,9 @@ export const metadata: Metadata = {
     creator: '@volvelo',
     images: ['/twitter-image'],
   },
+  verification: {
+    google: 'mN0lZbTY9Qx2u-5eUla56TYzoqn6kQNwazO9sFDIMjM',
+  },
 };
 
 import { getSiteSettings } from '@/lib/data-service';
@@ -156,9 +159,10 @@ export default async function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased overflow-x-hidden`}>
       <head>
         {/* Verification Meta Tags */}
-        {googleVerify && (
-          <meta name="google-site-verification" content={googleVerify} />
-        )}
+        <meta
+          name="google-site-verification"
+          content={googleVerify || 'mN0lZbTY9Qx2u-5eUla56TYzoqn6kQNwazO9sFDIMjM'}
+        />
         {bingVerify && (
           <meta name="msvalidate.01" content={bingVerify} />
         )}
