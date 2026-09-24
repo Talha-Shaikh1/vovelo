@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { getCategories, getSiteSettings } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -17,7 +18,7 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const url = `${baseUrl}/categories`;
   const title = 'All Collections & Luxury Categories | 1:1 Master Archives | Volvelo';
   const description =
@@ -147,7 +148,7 @@ export default async function CategoriesHubPage() {
     getSiteSettings(),
   ]);
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const pageUrl = `${baseUrl}/categories`;
 
   // Sort categories by product count or priority

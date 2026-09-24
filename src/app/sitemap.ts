@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getProducts, getCategories, getBlogPosts, getAllTenants } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
 
   const [products, categories, posts, tenants] = await Promise.all([
     getProducts({ limit: 100 }),

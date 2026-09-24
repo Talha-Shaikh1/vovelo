@@ -8,6 +8,7 @@ import { ProductCard } from '@/components/storefront/ProductCard';
 import { CategoryFilters } from '@/components/storefront/CategoryFilters';
 import { Pagination } from '@/components/storefront/Pagination';
 import { getPaginatedProducts, getCategories, getCategoryBySlug, getAllTenants, getSiteSettings } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return { title: 'Category Not Found | Volvelo' };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const url = `${baseUrl}/category/${category.slug}`;
   const title = category.seoTitle || `${category.name} — Luxury European Essentials | Volvelo`;
   const description =
@@ -122,7 +123,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
   const { products, total, totalPages } = paginationResult;
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const categoryUrl = `${baseUrl}/category/${category.slug}`;
 
   // JSON-LD CollectionPage & BreadcrumbList Schema for Google & AEO AI search bots

@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   description:
     'Explore curated 1:1 master quality designer handbags, Swiss automatic timepieces, handcrafted leather footwear, luxury sunglasses, and ready-to-wear archive. 7-day return guarantee & express delivery.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vovelo.vercel.app'),
   applicationName: 'Volvelo',
-  authors: [{ name: 'Volvelo Luxury Archive', url: 'https://volvelo.com' }],
+  authors: [{ name: 'Volvelo Luxury Archive', url: 'https://vovelo.vercel.app' }],
   generator: 'Next.js',
   keywords: [
     '1:1 master quality luxury goods',
@@ -78,6 +78,7 @@ export const metadata: Metadata = {
     title: 'Volvelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
     description: 'Curated 1:1 master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
     siteName: 'Volvelo',
+    url: 'https://vovelo.vercel.app',
     locale: 'en_US',
     type: 'website',
     images: [
@@ -101,13 +102,14 @@ export const metadata: Metadata = {
 
 import { getSiteSettings } from '@/lib/data-service';
 import { AnalyticsScripts } from '@/components/storefront/AnalyticsScripts';
+import { getBaseUrl } from '@/lib/utils';
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const settings = await getSiteSettings();
 
   const globalJsonLd = {

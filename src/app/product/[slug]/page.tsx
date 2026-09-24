@@ -7,6 +7,7 @@ import { Footer } from '@/components/storefront/Footer';
 import { ProductDetailClient } from '@/components/storefront/ProductDetailClient';
 import { RelatedProducts } from '@/components/storefront/RelatedProducts';
 import { getProductBySlug, getRelatedProducts, getSiteSettings, getProductReviews } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     product.seoDescription ||
     product.description.slice(0, 155) ||
     'High quality sustainable product from Volvelo.';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const url = `${baseUrl}/product/${product.slug}`;
 
   const rawImg = product.images?.[0]?.url;
@@ -86,7 +87,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     getProductReviews(product.id),
   ]);
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const productUrl = `${baseUrl}/product/${product.slug}`;
 
   const totalRevCount = reviews.length > 0 ? reviews.length : 12;

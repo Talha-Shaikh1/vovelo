@@ -7,6 +7,7 @@ import { ProductCard } from '@/components/storefront/ProductCard';
 import { NextLevelHero } from '@/components/storefront/NextLevelHero';
 import { InfiniteProductFeed } from '@/components/storefront/InfiniteProductFeed';
 import { getProducts, getCategories, getSiteSettings, getAllTenants, getCuratedFeaturedProducts } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import {
   ArrowRight,
   Sparkles,
@@ -39,16 +40,31 @@ export const metadata: Metadata = {
     'express worldwide shipping 7-day returns',
   ],
   alternates: {
-    canonical: 'https://volvelo.com',
+    canonical: 'https://vovelo.vercel.app',
   },
   openGraph: {
     title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
     description:
       'Curated master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
-    url: 'https://volvelo.com',
+    url: 'https://vovelo.vercel.app',
     siteName: 'Volvelo',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+    description: 'Curated 1:1 master quality designer goods with express worldwide delivery.',
+    images: ['/twitter-image'],
   },
 };
 
@@ -63,7 +79,7 @@ export default async function HomePage() {
     ]);
 
   const activeTenants = allTenants.filter((t) => t.status === 'ACTIVE');
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
 
   // Comprehensive JSON-LD Structured Data for Technical SEO, Semantic Search & AEO (Perplexity, ChatGPT, Gemini, Google AI)
   const jsonLdOrganization = {

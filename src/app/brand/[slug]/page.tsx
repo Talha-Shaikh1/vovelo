@@ -6,6 +6,7 @@ import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { getTenantBySlug, getProducts, getSiteSettings } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { MapPin, Globe, Leaf, ShieldCheck, ArrowLeft, Store } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: BrandPageProps): Promise<Meta
   const title = `${tenant.name} — Luxury Brand House | Volvelo`;
   const description =
     tenant.story || `Discover sustainably crafted minimalist products by ${tenant.name} on Volvelo.`;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
 
   return {
     title,
@@ -38,6 +39,21 @@ export async function generateMetadata({ params }: BrandPageProps): Promise<Meta
       description,
       url: `${baseUrl}/brand/${tenant.slug}`,
       type: 'profile',
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${tenant.name} on Volvelo`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/twitter-image`],
     },
   };
 }
@@ -54,7 +70,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
   }
 
   const products = await getProducts({ tenantSlug: tenant.slug });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
 
   // Schema.org Brand / Organization Structured Data
   const jsonLdBrand = {

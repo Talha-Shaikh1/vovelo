@@ -6,6 +6,7 @@ import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { EmbeddedProductCard } from '@/components/storefront/EmbeddedProductCard';
 import { getBlogPostBySlug, getProductBySlug, getSiteSettings, getProducts } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { ChevronRight, Calendar, User, ArrowLeft } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     return { title: 'Article Not Found | Volvelo' };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const url = `${baseUrl}/blog/${post.slug}`;
   const title = post.seoTitle || `${post.title} | Volvelo Journal`;
   const description = post.seoDescription || post.excerpt;
@@ -63,7 +64,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://volvelo.com';
+  const baseUrl = getBaseUrl();
   const articleUrl = `${baseUrl}/blog/${post.slug}`;
 
   // Article / BlogPosting Schema for Google Knowledge Graph & AI Engine Ingestion

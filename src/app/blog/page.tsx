@@ -4,23 +4,44 @@ import { Metadata } from 'next';
 import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
 import { getBlogPosts, getSiteSettings } from '@/lib/data-service';
+import { getBaseUrl } from '@/lib/utils';
 import { ArrowRight, BookOpen } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Volvelo Journal — Horology, Italian Cordwaining & European Haute Craft | Volvelo',
-  description:
-    'In-depth stories and technical craftsmanship guides from master Swiss watchmakers, Tuscan cobblers, and Parisian high jewellery artisans.',
-  alternates: {
-    canonical: 'https://volvelo.com/blog',
-  },
-  openGraph: {
-    title: 'Volvelo Journal — European Craftsmanship & Horology',
-    description: 'Inside the workshops of Europe’s finest independent makers.',
-    url: 'https://volvelo.com/blog',
-  },
-};
+export function generateMetadata(): Metadata {
+  const baseUrl = getBaseUrl();
+  return {
+    title: 'Volvelo Journal — Horology, Italian Cordwaining & European Haute Craft | Volvelo',
+    description:
+      'In-depth stories and technical craftsmanship guides from master Swiss watchmakers, Tuscan cobblers, and Parisian high jewellery artisans.',
+    alternates: {
+      canonical: `${baseUrl}/blog`,
+    },
+    openGraph: {
+      title: 'Volvelo Journal — European Craftsmanship & Horology',
+      description: 'Inside the workshops of Europe’s finest independent makers.',
+      url: `${baseUrl}/blog`,
+      siteName: 'Volvelo',
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: 'Volvelo Journal',
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Volvelo Journal — European Craftsmanship & Horology',
+      description: 'Inside the workshops of Europe’s finest independent makers.',
+      images: [`${baseUrl}/twitter-image`],
+    },
+  };
+}
 
 export default async function BlogListPage() {
   const [settings, posts] = await Promise.all([
