@@ -234,6 +234,7 @@ export interface SiteSettings {
   bingSiteVerification?: string | null;
   pinterestVerification?: string | null;
   customHeadScripts?: string | null;
+  instagramHandle?: string | null;
 }
 
 export type CurrencyCode = 'EUR' | 'GBP' | 'USD' | 'CHF';

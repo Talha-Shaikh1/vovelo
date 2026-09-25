@@ -16,9 +16,11 @@ import {
   Minus,
 } from 'lucide-react';
 import { useCartStore } from '@/lib/cart-store';
-import { PriceDisplay } from '@/components/storefront/PriceDisplay';
 import { Header } from '@/components/storefront/Header';
 import { Footer } from '@/components/storefront/Footer';
+import { PriceDisplay } from '@/components/storefront/PriceDisplay';
+import { InstagramIcon } from '@/components/storefront/InstagramIcon';
+import { initiateMultiItemInstagramOrder } from '@/lib/instagram-order';
 import { mockPromoCodes } from '@/lib/mock-data';
 
 export default function CartPage() {
@@ -329,13 +331,29 @@ export default function CartPage() {
                   </div>
 
                   {/* Checkout CTA */}
-                  <Link
-                    href="/checkout"
-                    className="w-full py-4 px-6 rounded-xl bg-[#0F5132] hover:bg-[#0A3622] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all hover:scale-[1.01]"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      initiateMultiItemInstagramOrder(
+                        items.map((i) => ({
+                          title: i.title,
+                          variantTitle: i.variantTitle,
+                          sku: i.sku,
+                          quantity: i.quantity,
+                        })),
+                        'volvelo'
+                      );
+                    }}
+                    className="w-full py-4 px-6 rounded-xl bg-[#111111] hover:bg-black text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-md transition-all hover:scale-[1.01]"
                   >
-                    <span>Proceed to Checkout</span>
-                    <ArrowRight size={16} />
-                  </Link>
+                    <InstagramIcon size={18} className="text-pink-400 shrink-0" />
+                    <span>Send Order to Instagram DM</span>
+                  </button>
+
+                  <div className="flex items-center gap-2 px-3 py-2 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-xs text-[#581C87]">
+                    <InstagramIcon size={14} className="text-[#C026D3] shrink-0" />
+                    <span>Your full item summary will be copied & transferred to <strong>@volvelo</strong> concierge chat.</span>
+                  </div>
 
                   {/* Trust Badges */}
                   <div className="pt-2 space-y-2.5 text-[11px] text-[#666660]">

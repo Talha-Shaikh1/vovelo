@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, ShoppingBag, Check, Star, ShieldCheck, ChevronRight, Play, Pause } from 'lucide-react';
-import { useCartStore } from '@/lib/cart-store';
+import { ArrowRight, Sparkles, Check, Star, ShieldCheck, ChevronRight, Play, Pause } from 'lucide-react';
+import { InstagramIcon } from './InstagramIcon';
+import { initiateInstagramOrder } from '@/lib/instagram-order';
 import { Product } from '@/lib/types';
 import { PriceDisplay } from './PriceDisplay';
 
@@ -80,7 +81,6 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [addedAnimation, setAddedAnimation] = useState(false);
-  const addItem = useCartStore((state) => state.addItem);
 
   const currentSlide = HERO_SLIDES[currentSlideIndex];
 
@@ -93,28 +93,21 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
-  const handleHeroQuickAdd = () => {
+  const handleHeroOrderInstagram = async () => {
     const product = products.find((p) => p.slug === currentSlide.slug);
     const variant = product?.variants[0];
 
-    if (product && variant) {
-      addItem({
-        productId: product.id,
-        variantId: variant.id,
-        tenantId: product.tenantId,
-        title: product.title,
-        variantTitle: 'Standard',
-        sku: variant.sku,
-        price: variant.price,
-        image: currentSlide.image,
-        selectedOptions: (variant.optionValues as Record<string, string>) || {},
-        maxStock: variant.stock,
-        quantity: 1,
-      });
+    await initiateInstagramOrder({
+      productTitle: product?.title || currentSlide.headline + ' ' + currentSlide.subheadline,
+      variantTitle: variant ? Object.values(variant.optionValues || {}).join(' / ') || 'Standard' : 'Standard',
+      sku: variant?.sku,
+      quantity: 1,
+      productSlug: currentSlide.slug,
+      instagramHandle: 'volvelo',
+    });
 
-      setAddedAnimation(true);
-      setTimeout(() => setAddedAnimation(false), 1800);
-    }
+    setAddedAnimation(true);
+    setTimeout(() => setAddedAnimation(false), 2000);
   };
 
   return (
@@ -183,22 +176,22 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
 
               <button
                 type="button"
-                onClick={handleHeroQuickAdd}
+                onClick={handleHeroOrderInstagram}
                 className={`px-5 py-4 rounded-xl text-xs font-bold flex items-center gap-2 border transition-all ${
                   addedAnimation
-                    ? 'bg-[#0F5132] text-white border-[#0F5132]'
-                    : 'bg-white text-[#111111] border-[#E4E4E0] hover:bg-[#F0F0EC]'
+                    ? 'bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white border-transparent'
+                    : 'bg-white text-[#111111] border-[#E4E4E0] hover:bg-[#111111] hover:text-white'
                 }`}
               >
                 {addedAnimation ? (
                   <>
                     <Check size={16} className="text-white animate-in zoom-in-50" />
-                    <span>Added to Bag</span>
+                    <span>Opening Instagram...</span>
                   </>
                 ) : (
                   <>
-                    <ShoppingBag size={16} className="text-[#0F5132]" />
-                    <span>Instant Bag Add</span>
+                    <InstagramIcon size={16} className="text-pink-500" />
+                    <span>Order on IG</span>
                   </>
                 )}
               </button>

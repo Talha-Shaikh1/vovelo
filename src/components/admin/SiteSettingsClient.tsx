@@ -303,7 +303,7 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
           </div>
           <div>
             <label className="text-xs font-semibold text-[#111111] block mb-1">
-              Contact Phone
+              Contact Phone / WhatsApp
             </label>
             <input
               type="text"
@@ -312,6 +312,25 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
               onChange={handleChange}
               className="w-full text-xs bg-white border border-[#E4E4E0] rounded-xl px-3 py-2"
             />
+          </div>
+          <div className="sm:col-span-2">
+            <label className="text-xs font-semibold text-[#111111] block mb-1">
+              Instagram Store Handle / Username (for Direct Orders)
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#666660]">@</span>
+              <input
+                type="text"
+                name="instagramHandle"
+                value={settings.instagramHandle || 'volvelo'}
+                onChange={handleChange}
+                placeholder="volvelo"
+                className="w-full text-xs bg-white border border-[#E4E4E0] rounded-xl pl-8 pr-3 py-2 font-mono"
+              />
+            </div>
+            <p className="text-[10px] text-[#666660] mt-1">
+              When customers click &quot;Order via Instagram&quot;, their cart/product message will automatically target <strong>https://ig.me/m/{settings.instagramHandle || 'volvelo'}</strong>.
+            </p>
           </div>
           <div className="sm:col-span-2">
             <label className="text-xs font-semibold text-[#111111] block mb-1">

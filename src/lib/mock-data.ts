@@ -43,6 +43,7 @@ export const mockSiteSettings: SiteSettings = {
   bingSiteVerification: '',
   pinterestVerification: '',
   customHeadScripts: '',
+  instagramHandle: 'volvelo',
 };
 
 export const mockTenants: Tenant[] = [

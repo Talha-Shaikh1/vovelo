@@ -9,6 +9,8 @@ import { useCartStore } from '@/lib/cart-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import { PriceDisplay } from './PriceDisplay';
 import { ProductReviews } from './ProductReviews';
+import { InstagramIcon } from './InstagramIcon';
+import { initiateInstagramOrder } from '@/lib/instagram-order';
 import {
   ShoppingBag,
   Check,
@@ -21,6 +23,8 @@ import {
   Sparkles,
   Flame,
   Heart,
+  MessageCircle,
+  Copy,
 } from 'lucide-react';
 
 interface ProductDetailClientProps {
@@ -53,28 +57,25 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
     }
   }, [variantParam, product.variants]);
 
-  const handleAddToCart = () => {
-    if (!selectedVariant || selectedVariant.stock <= 0) return;
+  const handleOrderViaInstagram = async () => {
+    if (!selectedVariant || isOutOfStock) return;
 
-    addItem({
-      productId: product.id,
-      variantId: selectedVariant.id,
-      tenantId: product.tenantId,
-      title: product.title,
-      variantTitle:
-        Object.entries(selectedVariant.optionValues || {})
-          .map(([_, val]) => val)
-          .join(' / ') || 'Standard',
+    const variantTitle =
+      Object.entries(selectedVariant.optionValues || {})
+        .map(([_, val]) => val)
+        .join(' / ') || 'Standard';
+
+    await initiateInstagramOrder({
+      productTitle: product.title,
+      variantTitle,
       sku: selectedVariant.sku,
-      price: selectedVariant.price,
-      image: selectedVariant.image || product.images[0]?.url,
-      selectedOptions: (selectedVariant.optionValues as Record<string, string>) || {},
-      maxStock: selectedVariant.stock,
       quantity,
+      productSlug: product.slug,
+      instagramHandle: settings?.instagramHandle || 'volvelo',
     });
 
     setAddedAnimation(true);
-    setTimeout(() => setAddedAnimation(false), 2000);
+    setTimeout(() => setAddedAnimation(false), 2500);
   };
 
   const discountPercent =
@@ -216,32 +217,30 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                 </button>
               </div>
 
-              {/* Add to Cart CTA */}
+              {/* Order via Instagram CTA */}
               <button
                 type="button"
-                onClick={handleAddToCart}
+                onClick={handleOrderViaInstagram}
                 disabled={isOutOfStock}
-                className={`flex-1 py-3.5 px-4 sm:px-6 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition-all ${
+                className={`flex-1 py-3.5 px-4 sm:px-6 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-md transition-all ${
                   isOutOfStock
                     ? 'bg-[#E4E4E0] text-[#999990] cursor-not-allowed'
                     : addedAnimation
-                    ? 'bg-[#0F5132] text-white'
-                    : 'bg-[#0F5132] hover:bg-[#0A3622] text-white hover:shadow-lg'
+                    ? 'bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white scale-[1.01]'
+                    : 'bg-[#111111] hover:bg-black text-white hover:shadow-lg'
                 }`}
               >
                 {addedAnimation ? (
                   <>
                     <Check size={18} className="text-white animate-in zoom-in-50" />
-                    <span>Added to Bag!</span>
+                    <span>Opening Instagram DM...</span>
                   </>
                 ) : isOutOfStock ? (
                   <span>Out of Stock</span>
                 ) : (
                   <>
-                    <ShoppingBag size={18} />
-                    <span>
-                      Add to Bag • <PriceDisplay amount={selectedVariant.price * quantity} />
-                    </span>
+                    <InstagramIcon size={18} className="text-pink-400 shrink-0" />
+                    <span>Order via Instagram DM</span>
                   </>
                 )}
               </button>
@@ -265,6 +264,14 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
                   }`}
                 />
               </button>
+            </div>
+
+            {/* Instagram Order Guidance Notice */}
+            <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-xs text-[#581C87]">
+              <InstagramIcon size={16} className="text-[#C026D3] shrink-0" />
+              <p className="leading-snug">
+                Clicking opens Instagram DM with <strong>@{settings?.instagramHandle || 'volvelo'}</strong>. Order details & product link will be copied automatically so you can paste & send.
+              </p>
             </div>
           </div>
 

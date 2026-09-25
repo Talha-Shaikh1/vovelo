@@ -2,9 +2,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Sparkles, Check, Flame, Heart } from 'lucide-react';
+import { Sparkles, Check, Flame, Heart } from 'lucide-react';
+import { InstagramIcon } from './InstagramIcon';
+import { initiateInstagramOrder } from '@/lib/instagram-order';
 import { Product } from '@/lib/types';
-import { useCartStore } from '@/lib/cart-store';
 import { useWishlistStore } from '@/lib/wishlist-store';
 import { PriceDisplay } from './PriceDisplay';
 
@@ -20,7 +21,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const [isInView, setIsInView] = useState(priority);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const addItem = useCartStore((state) => state.addItem);
   const toggleWishlist = useWishlistStore((state) => state.toggleItem);
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(product.id));
 
@@ -65,31 +65,28 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const isLowStock = totalStock > 0 && totalStock <= 3;
   const isOutOfStock = totalStock === 0;
 
-  const handleQuickAdd = (e: React.MouseEvent) => {
+  const handleQuickInstagramOrder = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!defaultVariant || isOutOfStock) return;
 
-    addItem({
-      productId: product.id,
-      variantId: defaultVariant.id,
-      tenantId: product.tenantId,
-      title: product.title,
-      variantTitle:
-        Object.entries(defaultVariant.optionValues || {})
-          .map(([_, val]) => val)
-          .join(' / ') || 'Standard',
+    const variantTitle =
+      Object.entries(defaultVariant.optionValues || {})
+        .map(([_, val]) => val)
+        .join(' / ') || 'Standard';
+
+    await initiateInstagramOrder({
+      productTitle: product.title,
+      variantTitle,
       sku: defaultVariant.sku,
-      price: defaultVariant.price,
-      image: defaultVariant.image || defaultImage,
-      selectedOptions: (defaultVariant.optionValues as Record<string, string>) || {},
-      maxStock: defaultVariant.stock,
       quantity: 1,
+      productSlug: product.slug,
+      instagramHandle: 'volvelo',
     });
 
     setAddedAnimation(true);
-    setTimeout(() => setAddedAnimation(false), 1500);
+    setTimeout(() => setAddedAnimation(false), 2000);
   };
 
   return (
@@ -174,22 +171,22 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <div className="absolute bottom-3 inset-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
             <button
               type="button"
-              onClick={handleQuickAdd}
-              className={`w-full py-2.5 px-4 rounded-lg font-medium text-xs flex items-center justify-center gap-2 shadow-md transition-all ${
+              onClick={handleQuickInstagramOrder}
+              className={`w-full py-2.5 px-4 rounded-lg font-semibold text-xs flex items-center justify-center gap-2 shadow-md transition-all ${
                 addedAnimation
-                  ? 'bg-[#0F5132] text-white'
-                  : 'bg-white/95 text-[#111111] hover:bg-[#0F5132] hover:text-white backdrop-blur-xs'
+                  ? 'bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white'
+                  : 'bg-white/95 text-[#111111] hover:bg-[#111111] hover:text-white backdrop-blur-xs'
               }`}
             >
               {addedAnimation ? (
                 <>
                   <Check size={14} className="text-white" />
-                  <span>Added to Bag</span>
+                  <span>Opening Instagram...</span>
                 </>
               ) : (
                 <>
-                  <ShoppingBag size={14} />
-                  <span>Quick Add</span>
+                  <InstagramIcon size={14} className="text-pink-500 group-hover:text-pink-400" />
+                  <span>Order on IG</span>
                 </>
               )}
             </button>

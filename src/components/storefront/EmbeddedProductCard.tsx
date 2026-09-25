@@ -2,9 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Product } from '@/lib/types';
-import { useCartStore } from '@/lib/cart-store';
+import { InstagramIcon } from './InstagramIcon';
+import { initiateInstagramOrder } from '@/lib/instagram-order';
 import { PriceDisplay } from './PriceDisplay';
 
 interface EmbeddedProductCardProps {
@@ -12,26 +13,25 @@ interface EmbeddedProductCardProps {
 }
 
 export function EmbeddedProductCard({ product }: EmbeddedProductCardProps) {
-  const addItem = useCartStore((state) => state.addItem);
   const defaultVariant = product.variants?.[0];
   const image =
     product.images?.[0]?.url ||
     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=400&q=80';
 
-  const handleAdd = () => {
+  const handleOrderInstagram = async () => {
     if (!defaultVariant) return;
-    addItem({
-      productId: product.id,
-      variantId: defaultVariant.id,
-      tenantId: product.tenantId,
-      title: product.title,
-      variantTitle: 'Standard',
+    const variantTitle =
+      Object.entries(defaultVariant.optionValues || {})
+        .map(([_, val]) => val)
+        .join(' / ') || 'Standard';
+
+    await initiateInstagramOrder({
+      productTitle: product.title,
+      variantTitle,
       sku: defaultVariant.sku,
-      price: defaultVariant.price,
-      image: defaultVariant.image || image,
-      selectedOptions: (defaultVariant.optionValues as Record<string, string>) || {},
-      maxStock: defaultVariant.stock,
       quantity: 1,
+      productSlug: product.slug,
+      instagramHandle: 'volvelo',
     });
   };
 
@@ -57,11 +57,11 @@ export function EmbeddedProductCard({ product }: EmbeddedProductCardProps) {
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={handleAdd}
-              className="px-3 py-1.5 bg-[#0F5132] hover:bg-[#0A3622] text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
+              onClick={handleOrderInstagram}
+              className="px-3 py-1.5 bg-[#111111] hover:bg-black text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
             >
-              <ShoppingBag size={13} />
-              <span>Add to Bag</span>
+              <InstagramIcon size={13} className="text-pink-400" />
+              <span>Order on IG</span>
             </button>
             <Link
               href={`/product/${product.slug}`}

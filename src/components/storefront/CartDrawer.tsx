@@ -13,9 +13,12 @@ import {
   Tag,
   CheckCircle2,
   AlertCircle,
+  MessageCircle,
 } from 'lucide-react';
 import { useCartStore } from '@/lib/cart-store';
 import { PriceDisplay } from './PriceDisplay';
+import { InstagramIcon } from './InstagramIcon';
+import { initiateMultiItemInstagramOrder } from '@/lib/instagram-order';
 
 export function CartDrawer() {
   const isOpen = useCartStore((state) => state.isOpen);
@@ -317,28 +320,34 @@ export function CartDrawer() {
 
               {/* Actions */}
               <div className="space-y-2 pt-2">
-                <Link
-                  href="/checkout"
-                  onClick={closeCart}
-                  className="w-full py-3 px-4 bg-[#0F5132] hover:bg-[#0A3622] text-white font-semibold text-sm rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
+                <button
+                  type="button"
+                  onClick={() => {
+                    initiateMultiItemInstagramOrder(
+                      items.map((i) => ({
+                        title: i.title,
+                        variantTitle: i.variantTitle,
+                        sku: i.sku,
+                        quantity: i.quantity,
+                      })),
+                      'volvelo'
+                    );
+                  }}
+                  className="w-full py-3.5 px-4 bg-[#111111] hover:bg-black text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all"
                 >
-                  <span>Express Guest Checkout</span>
-                  <ArrowRight size={16} />
-                </Link>
+                  <InstagramIcon size={18} className="text-pink-400 shrink-0" />
+                  <span>Order Bag via Instagram DM</span>
+                </button>
 
-                <Link
-                  href="/cart"
-                  onClick={closeCart}
-                  className="w-full py-2.5 px-4 bg-[#F0F0EC] hover:bg-[#E4E4E0] text-[#111111] font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-colors"
-                >
-                  <ShoppingBag size={14} />
-                  <span>View Dedicated Cart Page</span>
-                </Link>
+                <div className="flex items-center gap-2 px-3 py-2 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-[11px] text-[#581C87]">
+                  <InstagramIcon size={14} className="text-[#C026D3] shrink-0" />
+                  <span>All items in your bag will be copied to send directly to <strong>@volvelo</strong> concierge.</span>
+                </div>
               </div>
 
               <div className="flex items-center justify-center gap-2 text-[11px] text-[#666660]">
                 <ShieldCheck size={13} className="text-[#0F5132]" />
-                <span>100% Guest Checkout • No Password Required</span>
+                <span>Verified Luxury Concierge • Instant Response</span>
               </div>
             </div>
           )}
