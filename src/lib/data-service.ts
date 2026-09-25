@@ -337,7 +337,7 @@ export async function getPaginatedProducts(
   };
 }
 
-export async function getCuratedFeaturedProducts(limit: number = 64): Promise<Product[]> {
+export async function getCuratedFeaturedProducts(limit: number = 100): Promise<Product[]> {
   const all = await getProducts();
   const categories = await getCategories();
 

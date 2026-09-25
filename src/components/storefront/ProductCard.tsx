@@ -18,40 +18,22 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(priority);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const toggleWishlist = useWishlistStore((state) => state.toggleItem);
   const isInWishlist = useWishlistStore((state) => state.isInWishlist(product.id));
-
-  // IntersectionObserver for viewport-based lazy loading
-  useEffect(() => {
-    if (priority || isInView) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      {
-        rootMargin: '200px 0px', // Pre-load 200px before scrolling into view
-        threshold: 0.01,
-      }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [priority, isInView]);
 
   const defaultImage =
     product.images?.[0]?.url ||
     'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80';
   const hoverImage = product.images?.[1]?.url || defaultImage;
+
+  // Ensure imageLoaded syncs if image is already cached or loaded before React hydration
+  useEffect(() => {
+    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth > 0) {
+      setImageLoaded(true);
+    }
+  }, [defaultImage]);
 
   const defaultVariant = product.variants?.[0];
   const discountPercent =
@@ -91,31 +73,31 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
-      ref={cardRef}
       className="group relative flex flex-col bg-transparent rounded-xl transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Product Image Container */}
       <div className="relative w-full aspect-[4/5] bg-[#F0F0EC] rounded-xl overflow-hidden mb-3.5 border border-[#E4E4E0]/60">
-        {/* Shimmer skeleton placeholder while image is loading or before entering viewport */}
-        {(!isInView || !imageLoaded) && (
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F0F0EC] via-[#E4E4E0] to-[#F0F0EC] animate-pulse" />
-        )}
+        {/* Shimmer skeleton placeholder while image is loading */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-r from-[#F0F0EC] via-[#E4E4E0] to-[#F0F0EC] animate-pulse pointer-events-none transition-opacity duration-300 ${
+            imageLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
 
-        {isInView && (
-          <Link href={`/product/${product.slug}`} className="block w-full h-full">
-            <img
-              src={isHovered && hoverImage ? hoverImage : defaultImage}
-              alt={product.images?.[0]?.altText || product.title}
-              onLoad={() => setImageLoaded(true)}
-              className={`w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 ease-out ${
-                imageLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              loading={priority ? 'eager' : 'lazy'}
-            />
-          </Link>
-        )}
+        <Link href={`/product/${product.slug}`} className="block w-full h-full relative z-0">
+          <img
+            ref={imgRef}
+            src={isHovered && hoverImage ? hoverImage : defaultImage}
+            alt={product.images?.[0]?.altText || product.title}
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageLoaded(true)}
+            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500 ease-out"
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </Link>
 
         {/* Badges Overlay */}
         <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10 pointer-events-none">

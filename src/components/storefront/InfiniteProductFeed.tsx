@@ -15,7 +15,7 @@ export function InfiniteProductFeed({
   categories = [],
 }: InfiniteProductFeedProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [visibleCount, setVisibleCount] = useState<number>(16);
+  const [visibleCount, setVisibleCount] = useState<number>(24);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -37,9 +37,9 @@ export function InfiniteProductFeed({
         if (entries[0].isIntersecting) {
           setIsLoadingMore(true);
           setTimeout(() => {
-            setVisibleCount((prev) => Math.min(prev + 12, filteredProducts.length));
+            setVisibleCount((prev) => Math.min(prev + 16, filteredProducts.length));
             setIsLoadingMore(false);
-          }, 350); // Natural smooth delay
+          }, 250); // Natural smooth delay
         }
       },
       {
@@ -60,7 +60,7 @@ export function InfiniteProductFeed({
 
   const handleCategoryChange = (slug: string) => {
     setSelectedCategory(slug);
-    setVisibleCount(16); // Reset batch for newly selected category
+    setVisibleCount(24); // Reset batch for newly selected category
   };
 
   const topCategoryPills = [

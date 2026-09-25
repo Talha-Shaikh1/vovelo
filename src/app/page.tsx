@@ -73,7 +73,7 @@ export default async function HomePage() {
     await Promise.all([
       getSiteSettings(),
       getCategories(),
-      getCuratedFeaturedProducts(64),
+      getCuratedFeaturedProducts(100),
       getProducts({ limit: 20 }),
       getAllTenants(),
     ]);
@@ -258,7 +258,7 @@ export default async function HomePage() {
                 1:1 Master Quality Archive
               </h2>
               <p className="text-xs sm:text-sm text-[#666660] mt-1 max-w-lg">
-                Discover 60+ hand-selected pieces across handbags, chronographs, footwear, and apparel with smooth progressive stream.
+                Discover 100+ hand-selected pieces across handbags, chronographs, footwear, and apparel with smooth progressive stream.
               </p>
             </div>
             <Link
