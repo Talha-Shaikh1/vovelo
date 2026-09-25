@@ -13,31 +13,31 @@ export const dynamic = 'force-dynamic';
 export function generateMetadata(): Metadata {
   const baseUrl = getBaseUrl();
   return {
-    title: 'All Luxury Collections & European Goods | Volvelo',
+    title: 'All Luxury Collections & European Goods | Vovelo',
     description:
       'Explore the full luxury catalog of Swiss automatic chronographs, handcrafted Italian footwear, mulberry silk clothing, and 18K fine jewellery.',
     alternates: {
       canonical: `${baseUrl}/shop`,
     },
     openGraph: {
-      title: 'All Luxury Collections & European Goods | Volvelo',
+      title: 'All Luxury Collections & European Goods | Vovelo',
       description: 'Explore the full 1:1 master luxury catalog with verified authentic quality.',
       url: `${baseUrl}/shop`,
-      siteName: 'Volvelo',
+      siteName: 'Vovelo',
       type: 'website',
       images: [
         {
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: 'Volvelo — Luxury Catalog',
+          alt: 'Vovelo — Luxury Catalog',
           type: 'image/png',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'All Luxury Collections & European Goods | Volvelo',
+      title: 'All Luxury Collections & European Goods | Vovelo',
       description: 'Explore the full 1:1 master luxury catalog with verified authentic quality.',
       images: [`${baseUrl}/twitter-image`],
     },

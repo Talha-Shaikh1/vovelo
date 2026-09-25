@@ -152,7 +152,7 @@ export const useCartStore = create<CartState>()(
       },
     }),
     {
-      name: 'volvelo-guest-cart',
+      name: 'vovelo-guest-cart',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         items: state.items,

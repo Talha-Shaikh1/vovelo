@@ -19,7 +19,7 @@
   <!-- Inner luxury border -->
   <rect x="4" y="4" width="56" height="56" rx="12" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
 
-  <!-- Volvelo Elegant "V" Monogram -->
+  <!-- Vovelo Elegant "V" Monogram -->
   <path 
     d="M17 18 L24.5 18 L32 40 L39.5 18 L47 18 L35.5 48 L28.5 48 Z" 
     fill="url(#goldGrad)" 

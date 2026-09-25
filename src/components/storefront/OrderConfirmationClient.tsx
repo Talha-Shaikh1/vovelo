@@ -127,7 +127,7 @@ export function OrderConfirmationClient({ order }: OrderConfirmationClientProps)
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#E4E4E0] gap-4">
           <div>
             <span className="text-xl font-extrabold tracking-tight text-[#111111]">
-              VOLVELO COMMERCE
+              VOVELO COMMERCE
             </span>
             <p className="text-[11px] text-[#666660]">Official Commercial Invoice</p>
           </div>

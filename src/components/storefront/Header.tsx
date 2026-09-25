@@ -221,7 +221,7 @@ export function Header({
               <Link
                 href="/"
                 className="group flex items-center focus:outline-none focus:ring-2 focus:ring-[#0F5132] rounded-lg py-1"
-                title="Volvelo — Haute Couture & 1:1 Master Archive"
+                title="Vovelo — Haute Couture & 1:1 Master Archive"
               >
                 <BrandLogo size="md" className="group-hover:opacity-90 transition-opacity" />
               </Link>

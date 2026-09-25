@@ -524,7 +524,7 @@ export function MerchantPortalClient({
                         <td className="py-4 px-5">
                           <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#0F5132] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                             <CheckCircle2 size={10} />
-                            <span>Active on Volvelo</span>
+                            <span>Active on Vovelo</span>
                           </span>
                         </td>
                       </tr>

@@ -82,7 +82,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       sku: defaultVariant.sku,
       quantity: 1,
       productSlug: product.slug,
-      instagramHandle: 'volvelo',
+      instagramHandle: 'vovelo',
     });
 
     setAddedAnimation(true);

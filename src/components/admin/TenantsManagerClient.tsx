@@ -287,7 +287,7 @@ export function TenantsManagerClient({ initialTenants }: TenantsManagerClientPro
                 </div>
 
                 <p className="text-xs text-[#555550] line-clamp-2 leading-relaxed">
-                  {tenant.story || 'Independent European maker on Volvelo.'}
+                  {tenant.story || 'Independent European maker on Vovelo.'}
                 </p>
 
                 <div className="pt-2 text-[11px] text-[#666660] space-y-1">

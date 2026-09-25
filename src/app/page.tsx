@@ -25,7 +25,7 @@ import {
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Volvelo — Haute Couture Luxury Archive, Handbags, Watches & Designer Goods',
+  title: 'Vovelo — Haute Couture Luxury Archive, Handbags, Watches & Designer Goods',
   description:
     'Discover curated 1:1 master quality designer handbags, Swiss automatic timepieces, handcrafted leather footwear, and luxury accessories. 7-day inspection guarantee and express direct delivery.',
   keywords: [
@@ -36,18 +36,18 @@ export const metadata: Metadata = {
     'designer sunglasses polarized',
     'italian leather belts wallets',
     'designer outerwear coats',
-    'volvelo luxury archive',
+    'vovelo luxury archive',
     'express worldwide shipping 7-day returns',
   ],
   alternates: {
     canonical: 'https://vovelo.vercel.app',
   },
   openGraph: {
-    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+    title: 'Vovelo — Haute Couture Luxury Archive & Designer Collections',
     description:
       'Curated master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
     url: 'https://vovelo.vercel.app',
-    siteName: 'Volvelo',
+    siteName: 'Vovelo',
     locale: 'en_US',
     type: 'website',
     images: [
@@ -55,14 +55,14 @@ export const metadata: Metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+        alt: 'Vovelo — Haute Couture Luxury Archive & Designer Collections',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+    title: 'Vovelo — Haute Couture Luxury Archive & Designer Collections',
     description: 'Curated 1:1 master quality designer goods with express worldwide delivery.',
     images: ['/twitter-image'],
   },
@@ -85,7 +85,7 @@ export default async function HomePage() {
   const jsonLdOrganization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Volvelo',
+    name: 'Vovelo',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     description:
@@ -94,19 +94,19 @@ export default async function HomePage() {
       '@type': 'ContactPoint',
       telephone: settings.contactPhone || '+49 30 555 3829',
       contactType: 'customer concierge',
-      email: settings.contactEmail || 'concierge@volvelo.com',
+      email: settings.contactEmail || 'concierge@vovelo.com',
       availableLanguage: ['English', 'German', 'French', 'Italian', 'Spanish'],
     },
     sameAs: [
-      'https://instagram.com/volvelo',
-      'https://twitter.com/volvelo',
+      'https://instagram.com/vovelo',
+      'https://twitter.com/vovelo',
     ],
   };
 
   const jsonLdWebSite = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Volvelo',
+    name: 'Vovelo',
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',
@@ -121,10 +121,10 @@ export default async function HomePage() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What quality grade are the products on Volvelo?',
+        name: 'What quality grade are the products on Vovelo?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Every item on Volvelo is 1:1 Master Quality, crafted with exact imported genuine leather, weighted metal hardware, automatic watch movements, and precise structural stitching matching original luxury specifications.',
+          text: 'Every item on Vovelo is 1:1 Master Quality, crafted with exact imported genuine leather, weighted metal hardware, automatic watch movements, and precise structural stitching matching original luxury specifications.',
         },
       },
       {
@@ -487,7 +487,7 @@ export default async function HomePage() {
           <div className="space-y-4">
             <details className="group bg-white p-5 rounded-2xl border border-[#E4E4E0] [&_summary::-webkit-details-marker]:hidden cursor-pointer">
               <summary className="flex items-center justify-between font-bold text-xs sm:text-sm text-[#111111]">
-                <span>What quality grade are the products on Volvelo?</span>
+                <span>What quality grade are the products on Vovelo?</span>
                 <ChevronRight
                   size={16}
                   className="text-[#666660] group-open:rotate-90 transition-transform"

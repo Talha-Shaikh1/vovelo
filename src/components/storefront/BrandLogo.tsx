@@ -68,7 +68,7 @@ export function BrandLogo({ variant = 'dark', className = '', size = 'md' }: Bra
           className="font-serif font-black tracking-[0.24em] leading-none text-base sm:text-lg"
           style={{ color: textColor }}
         >
-          VOLVELO
+          VOVELO
         </span>
         <span
           className="font-sans font-bold tracking-[0.28em] text-[8px] sm:text-[9px] uppercase mt-1 leading-none"

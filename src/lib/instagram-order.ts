@@ -18,8 +18,8 @@ export interface CartItemOrderPayload {
 }
 
 export function getCleanInstagramHandle(handle?: string | null): string {
-  if (!handle) return 'volvelo';
-  return handle.replace(/^@+/, '').trim() || 'volvelo';
+  if (!handle) return 'vovelo';
+  return handle.replace(/^@+/, '').trim() || 'vovelo';
 }
 
 export function getInstagramDmUrl(handle?: string | null): string {
@@ -45,7 +45,7 @@ export function buildSingleProductMessage({
     (typeof window !== 'undefined' ? window.location.href : '');
 
   const lines = [
-    `👋 Hello Volvelo Concierge!`,
+    `👋 Hello Vovelo Concierge!`,
     `I would like to order the following item:`,
     ``,
     `🛍️ Product: ${productTitle}`,
@@ -82,7 +82,7 @@ export function buildMultiItemCartMessage(
     (typeof window !== 'undefined' ? window.location.origin : 'https://vovelo.vercel.app');
 
   const lines = [
-    `👋 Hello Volvelo Concierge!`,
+    `👋 Hello Vovelo Concierge!`,
     `I would like to place an order for the following items:`,
     ``,
   ];

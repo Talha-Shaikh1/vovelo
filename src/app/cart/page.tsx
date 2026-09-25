@@ -341,7 +341,7 @@ export default function CartPage() {
                           sku: i.sku,
                           quantity: i.quantity,
                         })),
-                        'volvelo'
+                        'vovelo'
                       );
                     }}
                     className="w-full py-4 px-6 rounded-xl bg-[#111111] hover:bg-black text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-md transition-all hover:scale-[1.01]"
@@ -352,7 +352,7 @@ export default function CartPage() {
 
                   <div className="flex items-center gap-2 px-3 py-2 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-xs text-[#581C87]">
                     <InstagramIcon size={14} className="text-[#C026D3] shrink-0" />
-                    <span>Your full item summary will be copied & transferred to <strong>@volvelo</strong> concierge chat.</span>
+                    <span>Your full item summary will be copied & transferred to <strong>@vovelo</strong> concierge chat.</span>
                   </div>
 
                   {/* Trust Badges */}

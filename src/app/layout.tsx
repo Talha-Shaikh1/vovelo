@@ -27,14 +27,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'Volvelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
-    template: '%s | Volvelo',
+    default: 'Vovelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
+    template: '%s | Vovelo',
   },
   description:
     'Explore curated 1:1 master quality designer handbags, Swiss automatic timepieces, handcrafted leather footwear, luxury sunglasses, and ready-to-wear archive. 7-day return guarantee & express delivery.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vovelo.vercel.app'),
-  applicationName: 'Volvelo',
-  authors: [{ name: 'Volvelo Luxury Archive', url: 'https://vovelo.vercel.app' }],
+  applicationName: 'Vovelo',
+  authors: [{ name: 'Vovelo Luxury Archive', url: 'https://vovelo.vercel.app' }],
   generator: 'Next.js',
   keywords: [
     '1:1 master quality luxury goods',
@@ -46,12 +46,12 @@ export const metadata: Metadata = {
     'couture coats outerwear',
     'luxury designer collection',
     'high grade designer archive',
-    'volvelo luxury',
+    'vovelo luxury',
     'express delivery 7 day returns',
   ],
   referrer: 'origin-when-cross-origin',
-  creator: 'Volvelo',
-  publisher: 'Volvelo',
+  creator: 'Vovelo',
+  publisher: 'Vovelo',
   robots: {
     index: true,
     follow: true,
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Volvelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
+    title: 'Vovelo — Haute Couture Luxury Archive, Handbags, Footwear & Designer Collections',
     description: 'Curated 1:1 master quality designer goods, Swiss automatic timepieces, leather footwear & accessories with 7-day returns.',
-    siteName: 'Volvelo',
+    siteName: 'Vovelo',
     url: 'https://vovelo.vercel.app',
     locale: 'en_US',
     type: 'website',
@@ -86,16 +86,16 @@ export const metadata: Metadata = {
         url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+        alt: 'Vovelo — Haute Couture Luxury Archive & Designer Collections',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Volvelo — Haute Couture Luxury Archive & Designer Collections',
+    title: 'Vovelo — Haute Couture Luxury Archive & Designer Collections',
     description: 'Curated 1:1 master quality designer goods, timepieces, leather footwear & accessories with 7-day returns.',
-    creator: '@volvelo',
+    creator: '@vovelo',
     images: ['/twitter-image'],
   },
   verification: {
@@ -125,7 +125,7 @@ export default async function RootLayout({
       {
         '@type': 'Organization',
         '@id': `${baseUrl}/#organization`,
-        name: settings.storeName || 'Volvelo',
+        name: settings.storeName || 'Vovelo',
         url: baseUrl,
         logo: settings.logoUrl || `${baseUrl}/logo.png`,
         description:
@@ -134,7 +134,7 @@ export default async function RootLayout({
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer concierge',
-          email: settings.contactEmail || 'concierge@volvelo.com',
+          email: settings.contactEmail || 'concierge@vovelo.com',
           availableLanguage: ['English', 'German', 'French', 'Italian', 'Spanish'],
         },
       },
@@ -142,7 +142,7 @@ export default async function RootLayout({
         '@type': 'WebSite',
         '@id': `${baseUrl}/#website`,
         url: baseUrl,
-        name: settings.storeName || 'Volvelo',
+        name: settings.storeName || 'Vovelo',
         publisher: {
           '@id': `${baseUrl}/#organization`,
         },

@@ -204,7 +204,7 @@ export function Footer() {
 
         {/* 3. Bottom Credits & Payment Badges */}
         <div className="border-t border-[#222222] mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#666660]">
-          <p>© {new Date().getFullYear()} Volvelo Luxury Archive. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Vovelo Luxury Archive. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <Link href="/categories" className="hover:text-gray-400 transition-colors">
               Collections

@@ -69,8 +69,8 @@ export const useWishlistStore = create<WishlistState>()(
               ? (product as Product).images?.[0]?.url || ''
               : (product as WishlistItem).image,
             brand: isFullProduct
-              ? (product as Product).tenant?.name || 'Volvelo Master'
-              : (product as WishlistItem).brand || 'Volvelo Master',
+              ? (product as Product).tenant?.name || 'Vovelo Master'
+              : (product as WishlistItem).brand || 'Vovelo Master',
             inStock: isFullProduct
               ? (product as Product).variants?.some((v) => v.stock > 0) ?? true
               : (product as WishlistItem).inStock ?? true,
@@ -89,7 +89,7 @@ export const useWishlistStore = create<WishlistState>()(
       getTotalItems: () => get().items.length,
     }),
     {
-      name: 'volvelo_wishlist_storage',
+      name: 'vovelo_wishlist_storage',
       storage: createJSONStorage(() => localStorage),
     }
   )

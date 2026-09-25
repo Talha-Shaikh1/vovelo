@@ -31,7 +31,7 @@ export function EmbeddedProductCard({ product }: EmbeddedProductCardProps) {
       sku: defaultVariant.sku,
       quantity: 1,
       productSlug: product.slug,
-      instagramHandle: 'volvelo',
+      instagramHandle: 'vovelo',
     });
   };
 

@@ -220,7 +220,7 @@ export default async function AdminDashboardPage() {
                           </div>
                         </div>
                       </td>
-                      <td className="p-3 text-[#666660] font-medium">{prod.tenant?.name || 'Volvelo'}</td>
+                      <td className="p-3 text-[#666660] font-medium">{prod.tenant?.name || 'Vovelo'}</td>
                       <td className="p-3 font-mono font-semibold">{formatPrice(prod.basePrice)}</td>
                       <td className="p-3 font-mono text-[#666660]">{prod.viewsCount || 0}</td>
                       <td className="p-3 text-right">

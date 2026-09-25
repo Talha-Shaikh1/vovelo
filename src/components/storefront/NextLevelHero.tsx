@@ -103,7 +103,7 @@ export function NextLevelHero({ products }: NextLevelHeroProps) {
       sku: variant?.sku,
       quantity: 1,
       productSlug: currentSlide.slug,
-      instagramHandle: 'volvelo',
+      instagramHandle: 'vovelo',
     });
 
     setAddedAnimation(true);

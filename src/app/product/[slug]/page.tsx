@@ -21,14 +21,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return { title: 'Product Not Found | Volvelo' };
+    return { title: 'Product Not Found | Vovelo' };
   }
 
-  const title = product.seoTitle || `${product.title} — Ethically Crafted in Europe | Volvelo`;
+  const title = product.seoTitle || `${product.title} — Ethically Crafted in Europe | Vovelo`;
   const description =
     product.seoDescription ||
     product.description.slice(0, 155) ||
-    'High quality sustainable product from Volvelo.';
+    'High quality sustainable product from Vovelo.';
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/product/${product.slug}`;
 
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title,
       description,
       url,
-      siteName: 'Volvelo',
+      siteName: 'Vovelo',
       type: 'website',
       images: [
         {
@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     mpn: product.variants[0]?.sku || product.slug,
     brand: {
       '@type': 'Brand',
-      name: product.tenant?.name || 'Volvelo',
+      name: product.tenant?.name || 'Vovelo',
     },
     aggregateRating: {
       '@type': 'AggregateRating',
@@ -143,7 +143,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
         '@type': 'Organization',
-        name: 'Volvelo',
+        name: 'Vovelo',
       },
       shippingDetails: {
         '@type': 'OfferShippingDetails',

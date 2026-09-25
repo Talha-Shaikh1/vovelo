@@ -71,7 +71,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
       sku: selectedVariant.sku,
       quantity,
       productSlug: product.slug,
-      instagramHandle: settings?.instagramHandle || 'volvelo',
+      instagramHandle: settings?.instagramHandle || 'vovelo',
     });
 
     setAddedAnimation(true);
@@ -270,7 +270,7 @@ export function ProductDetailClient({ product, settings }: ProductDetailClientPr
             <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-xs text-[#581C87]">
               <InstagramIcon size={16} className="text-[#C026D3] shrink-0" />
               <p className="leading-snug">
-                Clicking opens Instagram DM with <strong>@{settings?.instagramHandle || 'volvelo'}</strong>. Order details & product link will be copied automatically so you can paste & send.
+                Clicking opens Instagram DM with <strong>@{settings?.instagramHandle || 'vovelo'}</strong>. Order details & product link will be copied automatically so you can paste & send.
               </p>
             </div>
           </div>

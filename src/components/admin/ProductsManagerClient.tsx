@@ -338,7 +338,7 @@ export function ProductsManagerClient({
   const handleAutoGenerateSeo = () => {
     const cat = categories.find((c) => c.id === formCategoryId)?.name || 'Essentials';
     const maker = tenants.find((t) => t.id === formTenantId)?.name || 'European Workshop';
-    setFormSeoTitle(`${formTitle} — ${cat} by ${maker} | Volvelo`);
+    setFormSeoTitle(`${formTitle} — ${cat} by ${maker} | Vovelo`);
     setFormSeoDescription(
       formDescription.slice(0, 150) ||
         `Shop ${formTitle} ethically crafted in Europe. Sustainable materials, direct fulfillment, and 7-day return guarantee.`
@@ -360,7 +360,7 @@ export function ProductsManagerClient({
         basePrice: parseFloat(formBasePrice.toString()),
         compareAtPrice: formComparePrice ? parseFloat(formComparePrice.toString()) : null,
         isFeatured: formIsFeatured,
-        seoTitle: formSeoTitle || `${formTitle} | Volvelo`,
+        seoTitle: formSeoTitle || `${formTitle} | Vovelo`,
         seoDescription: formSeoDescription || formDescription.slice(0, 150),
         shippingTimeOverride: formShippingOverride || null,
         returnsPolicyOverride: formReturnsOverride || null,

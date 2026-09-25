@@ -7,7 +7,7 @@ export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('volvelo-cookie-consent');
+    const consent = localStorage.getItem('vovelo-cookie-consent');
     if (!consent) {
       const timer = setTimeout(() => setIsVisible(true), 1200);
       return () => clearTimeout(timer);
@@ -15,12 +15,12 @@ export function CookieConsent() {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('volvelo-cookie-consent', 'accepted');
+    localStorage.setItem('vovelo-cookie-consent', 'accepted');
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('volvelo-cookie-consent', 'essential-only');
+    localStorage.setItem('vovelo-cookie-consent', 'essential-only');
     setIsVisible(false);
   };
 

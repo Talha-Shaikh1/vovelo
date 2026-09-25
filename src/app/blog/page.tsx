@@ -12,31 +12,31 @@ export const dynamic = 'force-dynamic';
 export function generateMetadata(): Metadata {
   const baseUrl = getBaseUrl();
   return {
-    title: 'Volvelo Journal — Horology, Italian Cordwaining & European Haute Craft | Volvelo',
+    title: 'Vovelo Journal — Horology, Italian Cordwaining & European Haute Craft | Vovelo',
     description:
       'In-depth stories and technical craftsmanship guides from master Swiss watchmakers, Tuscan cobblers, and Parisian high jewellery artisans.',
     alternates: {
       canonical: `${baseUrl}/blog`,
     },
     openGraph: {
-      title: 'Volvelo Journal — European Craftsmanship & Horology',
+      title: 'Vovelo Journal — European Craftsmanship & Horology',
       description: 'Inside the workshops of Europe’s finest independent makers.',
       url: `${baseUrl}/blog`,
-      siteName: 'Volvelo',
+      siteName: 'Vovelo',
       type: 'website',
       images: [
         {
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: 'Volvelo Journal',
+          alt: 'Vovelo Journal',
           type: 'image/png',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Volvelo Journal — European Craftsmanship & Horology',
+      title: 'Vovelo Journal — European Craftsmanship & Horology',
       description: 'Inside the workshops of Europe’s finest independent makers.',
       images: [`${baseUrl}/twitter-image`],
     },
@@ -57,7 +57,7 @@ export default async function BlogListPage() {
         <div className="max-w-2xl mb-12">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0F5132] mb-2">
             <BookOpen size={14} />
-            <span>Volvelo Journal</span>
+            <span>Vovelo Journal</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111111] tracking-tight">
             Stories, Guides & Conscious Living

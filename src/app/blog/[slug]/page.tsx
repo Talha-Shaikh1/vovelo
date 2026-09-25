@@ -20,12 +20,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const post = await getBlogPostBySlug(slug);
 
   if (!post) {
-    return { title: 'Article Not Found | Volvelo' };
+    return { title: 'Article Not Found | Vovelo' };
   }
 
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/blog/${post.slug}`;
-  const title = post.seoTitle || `${post.title} | Volvelo Journal`;
+  const title = post.seoTitle || `${post.title} | Vovelo Journal`;
   const description = post.seoDescription || post.excerpt;
 
   return {
@@ -82,7 +82,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Volvelo',
+      name: 'Vovelo',
       logo: {
         '@type': 'ImageObject',
         url: `${baseUrl}/logo.png`,

@@ -322,14 +322,14 @@ export function SiteSettingsClient({ initialSettings }: SiteSettingsClientProps)
               <input
                 type="text"
                 name="instagramHandle"
-                value={settings.instagramHandle || 'volvelo'}
+                value={settings.instagramHandle || 'vovelo'}
                 onChange={handleChange}
-                placeholder="volvelo"
+                placeholder="vovelo"
                 className="w-full text-xs bg-white border border-[#E4E4E0] rounded-xl pl-8 pr-3 py-2 font-mono"
               />
             </div>
             <p className="text-[10px] text-[#666660] mt-1">
-              When customers click &quot;Order via Instagram&quot;, their cart/product message will automatically target <strong>https://ig.me/m/{settings.instagramHandle || 'volvelo'}</strong>.
+              When customers click &quot;Order via Instagram&quot;, their cart/product message will automatically target <strong>https://ig.me/m/{settings.instagramHandle || 'vovelo'}</strong>.
             </p>
           </div>
           <div className="sm:col-span-2">

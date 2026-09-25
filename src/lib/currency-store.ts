@@ -49,7 +49,7 @@ export const useCurrencyStore = create<CurrencyState>()(
       },
     }),
     {
-      name: 'volvelo-currency-preference',
+      name: 'vovelo-currency-preference',
       storage: createJSONStorage(() => localStorage),
     }
   )

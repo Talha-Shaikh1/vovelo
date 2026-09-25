@@ -20,7 +20,7 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/categories`;
-  const title = 'All Collections & Luxury Categories | 1:1 Master Archives | Volvelo';
+  const title = 'All Collections & Luxury Categories | 1:1 Master Archives | Vovelo';
   const description =
     'Explore all 15 master luxury departments — Handcrafted Handbags, Swiss Timepieces, Designer Footwear, Outerwear, Fine Jewelry, and Designer Accessories with 7-Day Guarantee.';
 
@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url,
-      siteName: 'Volvelo',
+      siteName: 'Vovelo',
       type: 'website',
       images: [
         {
@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
           secureUrl: `${baseUrl}/api/drive-image/1C3DTN16ef_5M4FVPct-cUt_KM72AQdg_`,
           width: 1200,
           height: 630,
-          alt: 'Volvelo 1:1 Master Luxury Collections',
+          alt: 'Vovelo 1:1 Master Luxury Collections',
           type: 'image/jpeg',
         },
       ],
@@ -167,7 +167,7 @@ export default async function CategoriesHubPage() {
   const jsonLdCollection = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'All Luxury Categories & Collections | Volvelo',
+    name: 'All Luxury Categories & Collections | Vovelo',
     description:
       'Browse all 15 curated luxury departments with 1:1 master quality verification, express shipping, and 7-day returns guarantee.',
     url: pageUrl,

@@ -32,12 +32,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const category = await getCategoryBySlug(slug);
 
   if (!category) {
-    return { title: 'Category Not Found | Volvelo' };
+    return { title: 'Category Not Found | Vovelo' };
   }
 
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/category/${category.slug}`;
-  const title = category.seoTitle || `${category.name} — Luxury European Essentials | Volvelo`;
+  const title = category.seoTitle || `${category.name} — Luxury European Essentials | Vovelo`;
   const description =
     category.seoDescription ||
     category.description ||
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       title,
       description,
       url,
-      siteName: 'Volvelo',
+      siteName: 'Vovelo',
       type: 'website',
       images: [
         {

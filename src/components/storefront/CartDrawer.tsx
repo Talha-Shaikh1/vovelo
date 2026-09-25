@@ -261,7 +261,7 @@ export function CartDrawer() {
                       <div className="relative flex-1">
                         <input
                           type="text"
-                          placeholder="Promo code (e.g. VOLVELO10)"
+                          placeholder="Promo code (e.g. VOVELO10)"
                           value={promoInput}
                           onChange={(e) => setPromoInput(e.target.value)}
                           className="w-full text-xs px-3 py-2 border border-[#E4E4E0] rounded-xl focus:ring-2 focus:ring-[#0F5132] focus:outline-none uppercase font-mono"
@@ -330,7 +330,7 @@ export function CartDrawer() {
                         sku: i.sku,
                         quantity: i.quantity,
                       })),
-                      'volvelo'
+                      'vovelo'
                     );
                   }}
                   className="w-full py-3.5 px-4 bg-[#111111] hover:bg-black text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all"
@@ -341,7 +341,7 @@ export function CartDrawer() {
 
                 <div className="flex items-center gap-2 px-3 py-2 bg-[#FAF5FF] border border-[#E9D5FF] rounded-xl text-[11px] text-[#581C87]">
                   <InstagramIcon size={14} className="text-[#C026D3] shrink-0" />
-                  <span>All items in your bag will be copied to send directly to <strong>@volvelo</strong> concierge.</span>
+                  <span>All items in your bag will be copied to send directly to <strong>@vovelo</strong> concierge.</span>
                 </div>
               </div>
 

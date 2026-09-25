@@ -20,12 +20,12 @@ export async function generateMetadata({ params }: BrandPageProps): Promise<Meta
   const tenant = await getTenantBySlug(slug);
 
   if (!tenant) {
-    return { title: 'Maker Not Found | Volvelo' };
+    return { title: 'Maker Not Found | Vovelo' };
   }
 
-  const title = `${tenant.name} — Luxury Brand House | Volvelo`;
+  const title = `${tenant.name} — Luxury Brand House | Vovelo`;
   const description =
-    tenant.story || `Discover sustainably crafted minimalist products by ${tenant.name} on Volvelo.`;
+    tenant.story || `Discover sustainably crafted minimalist products by ${tenant.name} on Vovelo.`;
   const baseUrl = getBaseUrl();
 
   return {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: BrandPageProps): Promise<Meta
           url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `${tenant.name} on Volvelo`,
+          alt: `${tenant.name} on Vovelo`,
           type: 'image/png',
         },
       ],

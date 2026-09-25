@@ -228,7 +228,7 @@ export function AbandonedCartsClient({ initialCarts }: AbandonedCartsClientProps
                   {/* Brand Header */}
                   <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
                     <span className="font-extrabold tracking-tight text-sm text-[#111111]">
-                      VOLVELO
+                      VOVELO
                     </span>
                     <span className="text-[10px] uppercase tracking-wider text-[#666660]">
                       Direct VIP Dispatch
@@ -278,7 +278,7 @@ export function AbandonedCartsClient({ initialCarts }: AbandonedCartsClientProps
                         VIP Courtesy Code
                       </span>
                       <span className="text-xs font-mono font-bold text-neutral-900">
-                        VOLVELO10
+                        VOVELO10
                       </span>
                     </div>
                     <span className="text-xs font-bold text-[#0F5132]">10% Off Instant Savings</span>
@@ -293,7 +293,7 @@ export function AbandonedCartsClient({ initialCarts }: AbandonedCartsClientProps
                   </div>
 
                   <div className="pt-2 text-center text-[10px] text-neutral-400">
-                    Volvelo European HQ • Free Carbon-Neutral Shipping over €50 • 7-Day Free Returns
+                    Vovelo European HQ • Free Carbon-Neutral Shipping over €50 • 7-Day Free Returns
                   </div>
                 </div>
 

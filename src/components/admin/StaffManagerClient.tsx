@@ -250,7 +250,7 @@ export function StaffManagerClient({ initialUsers, tenants }: StaffManagerClient
                 <input
                   type="email"
                   required
-                  placeholder="elena@volvelo.com"
+                  placeholder="elena@vovelo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full text-xs px-3.5 py-2.5 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-[#0F5132] focus:outline-none"
