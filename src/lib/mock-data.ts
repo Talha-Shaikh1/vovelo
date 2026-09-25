@@ -43,7 +43,7 @@ export const mockSiteSettings: SiteSettings = {
   bingSiteVerification: '',
   pinterestVerification: '',
   customHeadScripts: '',
-  instagramHandle: 'vovelo',
+  instagramHandle: 'vo.velo.eu',
 };
 
 export const mockTenants: Tenant[] = [

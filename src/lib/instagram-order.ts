@@ -18,8 +18,8 @@ export interface CartItemOrderPayload {
 }
 
 export function getCleanInstagramHandle(handle?: string | null): string {
-  if (!handle) return 'vovelo';
-  return handle.replace(/^@+/, '').trim() || 'vovelo';
+  if (!handle) return 'vo.velo.eu';
+  return handle.replace(/^@+/, '').trim() || 'vo.velo.eu';
 }
 
 export function getInstagramDmUrl(handle?: string | null): string {
@@ -30,7 +30,7 @@ export function getInstagramDmUrl(handle?: string | null): string {
 
 export function getInstagramProfileUrl(handle?: string | null): string {
   const cleanHandle = getCleanInstagramHandle(handle);
-  return `https://instagram.com/${cleanHandle}`;
+  return `https://www.instagram.com/${cleanHandle}/`;
 }
 
 export function buildSingleProductMessage({

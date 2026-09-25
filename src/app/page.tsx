@@ -98,7 +98,7 @@ export default async function HomePage() {
       availableLanguage: ['English', 'German', 'French', 'Italian', 'Spanish'],
     },
     sameAs: [
-      'https://instagram.com/vovelo',
+      'https://www.instagram.com/vo.velo.eu/',
       'https://twitter.com/vovelo',
     ],
   };

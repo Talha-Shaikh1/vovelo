@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Award, RefreshCw, Truck, Sparkles, Check, ArrowRight, Mail, Lock } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { InstagramIcon } from './InstagramIcon';
 import { toast } from '@/lib/toast-store';
 
 export function Footer() {
@@ -78,6 +79,16 @@ export function Footer() {
             <p className="text-xs md:text-sm text-[#999990] max-w-md leading-relaxed">
               Curated haute couture luxury archive featuring 1:1 master quality designer handbags, Swiss timepieces, handcrafted footwear, and accessories.
             </p>
+
+            <a
+              href="https://www.instagram.com/vo.velo.eu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#252525] border border-[#333333] text-xs font-semibold text-[#FAFAF8] transition-colors"
+            >
+              <InstagramIcon size={14} className="text-pink-400" />
+              <span>@vo.velo.eu</span>
+            </a>
 
             {/* Newsletter VIP Box */}
             <div className="pt-2 max-w-md">
